@@ -16,14 +16,14 @@ const User = sequelize.define('User', {
       notEmpty: true,
     },
   },
-  firstName: {
+  firstname: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
     },
   },
-  lastName: {
+  lastname: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
