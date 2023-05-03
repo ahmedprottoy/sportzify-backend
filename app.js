@@ -1,21 +1,23 @@
-require("dotenv").config();
-
-console.log(`${process.env.PORT}`)
-
 const express = require("express");
+
+
+const blogRouter = require('./src/routes/blog.route');
+const userRouter = require('./src/routes/user.route');
+const authRouter = require('./src/routes/auth.route');
+
 const app = express();
 
-// const dotenv = require("dotenv");
-// dotenv.config();
+
 
 app.use(express.json());
 
 //cookieParser,cors,morgan
 
-const port = process.env.PORT;
+app.use('/api/v1/blogs',blogRouter);
+app.use('/api/v1/users',userRouter);
+app.use('/api/v1/auth',authRouter);
 
-app.listen(port, () => {
-  console.log(`${port} is running`);
-});
+module.exports = app;
+
 
 
