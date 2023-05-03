@@ -20,14 +20,14 @@ const signUp = [
       "Password should have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
     ),
 
-  body("confirmPassword")
-    .trim()
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords do not match");
-      }
-      return true;
-    }),
+  // body("confirmPassword")
+  //   .trim()
+  //   .custom((value, { req }) => {
+  //     if (value !== req.body.password) {
+  //       throw new Error("Passwords do not match");
+  //     }
+  //     return true;
+  //   }),
 
   body("firstname")
     .trim()
@@ -51,6 +51,6 @@ const signUp = [
     .withMessage("Age must be at most 100 years old"),
 ];
 
-export const authValidator = {
+module.exports = {
   signUp,
 };
