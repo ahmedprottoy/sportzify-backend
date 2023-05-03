@@ -1,10 +1,11 @@
-const userService = require("../services/user.service");
+const authService = require("../services/auth.service");
 const catchAsync = require("../middlewares/catchAsync");
 
 exports.signUp = catchAsync(async (req, res) => {
-  const { username, email, firstname, lastname, age, password } = req.body;
-  const userInfo = { username, email, firstname, lastname, age, password };
-  await userService.createUser(userInfo, res);
+  console.log("hitting sign up route");
+  const user = await authService.createUser(req.body);
+
+  res.status(201).json({ message: "user Created" });
 });
 
 exports.signIn = async (req, res) => {
