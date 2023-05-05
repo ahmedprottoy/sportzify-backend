@@ -1,7 +1,8 @@
 const AppError = require("../utils/AppError");
 const uuid = require("uuid");
 
-const { hashPassword } = require("../utils/HashPassword");
+const { hashPassword, comparePassword } = require("../utils/auth.util");
+const { generateAccessToken } = require("../utils/jwt.util");
 const StatusCode = require("../utils/Objects/StatusCode");
 const {
   getUserByEmail,
@@ -41,4 +42,19 @@ exports.createUser = async ({
   });
 
   return User;
+};
+
+exports.signIn = async (email, password) => {
+  const user = await getUserByEmail(email);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  if (!(await comparePassword(password, user.password))) {
+    throw new AppError(StatusCode.UNAUTHORIZED, "Incorrect password");
+  }
+
+  const token = await generateAccessToken(user.user_id);
+  return token;
 };
