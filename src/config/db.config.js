@@ -28,7 +28,7 @@ const sequelize = new Sequelize(db_url, {
 // Sync the model with the database
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     console.log("All models were synchronized successfully.");
 
     //await sequelize.sync({force:true}); ===>"DROP ALL TABLE & CREATE NEW ONE"
