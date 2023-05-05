@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-const signUp = [
+exports.signUp = [
   body("email")
     .isEmail()
     .withMessage("Please enter a valid email")
@@ -51,6 +51,9 @@ const signUp = [
     .withMessage("Age must be at most 100 years old"),
 ];
 
-export const authValidator = {
-  signUp,
-};
+exports.signIn = [
+  body("email")
+    .isEmail()
+    .withMessage("Please enter a valid email")
+    .normalizeEmail(),
+];

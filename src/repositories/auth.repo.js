@@ -13,6 +13,7 @@ exports.getUserById = async (id) => {
 };
 
 exports.createUser = async ({
+  user_id,
   username,
   email,
   firstname,
@@ -20,7 +21,9 @@ exports.createUser = async ({
   age,
   password,
 }) => {
+  console.log("hitting create user");
   const User = await user.create({
+    user_id,
     username,
     email,
     firstname,
