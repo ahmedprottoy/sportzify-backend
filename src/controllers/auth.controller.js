@@ -1,15 +1,28 @@
-const userService = require("../services/user.service");
+const authService = require("../services/auth.service");
 const catchAsync = require("../middlewares/catchAsync");
+const authUtil = require("../utils/auth.util");
 
 exports.signUp = catchAsync(async (req, res) => {
-  const { username, email, firstname, lastname, age, password } = req.body;
-  const userInfo = { username, email, firstname, lastname, age, password };
-  await userService.createUser(userInfo, res);
+  const user = await authService.createUser(req.body);
+
+  res.status(201).json({ message: "user Created" });
 });
 
-exports.signIn = async (req, res) => {
+exports.signIn = catchAsync(async (req, res) => {
   console.log("hitting sign in route");
-};
-exports.signOut = async (req, res) => {
-  console.log("hitting sign out route");
-};
+  const { email, password } = req.body;
+  const token = await authService.signIn(email, password);
+
+  await authUtil.setCookie(res, token);
+
+  res.status(200).json({
+    message: "user logged In",
+    token: token,
+  });
+});
+
+exports.signOut = catchAsync(async (req, res) => {
+  await authUtil.destroyCookie(res);
+
+  res.status(200).json({ message: "user logged out" });
+});
