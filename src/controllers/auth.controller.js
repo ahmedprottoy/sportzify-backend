@@ -21,6 +21,8 @@ exports.signIn = catchAsync(async (req, res) => {
   });
 });
 
-exports.signOut = async (req, res) => {
-  console.log("hitting sign out route");
-};
+exports.signOut = catchAsync(async (req, res) => {
+  await authUtil.destroyCookie(res);
+
+  res.status(200).json({ message: "user logged out" });
+});

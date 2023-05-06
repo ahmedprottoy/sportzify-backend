@@ -9,10 +9,14 @@ exports.comparePassword = async (inputPassword, hashedPassword) => {
   return await bcrypt.compare(inputPassword, hashedPassword);
 };
 
-exports.setCookie = (res, token) => {
+exports.setCookie = async (res, token) => {
   res.cookie("authorization", token, {
     httpOnly: true,
     sameSite: "none",
     secure: false,
   });
+};
+
+exports.destroyCookie = (res) => {
+  res.clearCookie("authorization");
 };

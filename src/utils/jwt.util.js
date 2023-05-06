@@ -8,9 +8,13 @@ exports.generateAccessToken = async (userId) => {
   return token;
 };
 
-// exports.verifyAccessToken = (token) => {
-//     return jwt.verify(token, process.env.JWT_SECRET);
-//     }
+exports.verifyAccessToken = async (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
+};
+
+exports.getCookie = async (req) => {
+  return req.cookies.authorization || req.headers.authorization;
+};
 
 // exports.generateRefreshToken = (userId) => {
 //     const token = jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET, {
