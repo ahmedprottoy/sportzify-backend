@@ -1,12 +1,15 @@
-const userModel = require('../models/user.model');
-exports.allUsers = async(req,res)=>{
-    console.log("getting all users");
-}
+const catchAsync = require("../middlewares/catchAsync");
+const userModel = require("../models/user.model");
+const userService = require("../services/user.service");
 
-exports.user = async(req,res)=>{
-    console.log("getting single user");
-}
+exports.user = async (req, res) => {
+  const userId = req.params.id;
 
-exports.allBlogs = async(req,res)=>{
-    console.log("getting every blogs of specified user");
-}
+  const user = await userService.user(userId);
+
+  res.status(200).json({ user });
+};
+
+exports.allBlogs = async (req, res) => {
+  console.log("getting every blogs of specified user");
+};
