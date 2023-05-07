@@ -8,10 +8,6 @@ exports.getUserByUsername = async (username) => {
   return await user.findOne({ where: { username } });
 };
 
-exports.getUserById = async (id) => {
-  return await user.findOne({ where: { id } });
-};
-
 exports.createUser = async ({
   user_id,
   username,
