@@ -28,3 +28,21 @@ exports.updateUser = async (userId, updateBody, password) => {
 
   return await getUserById(userId);
 };
+
+exports.passwordUpdate = async (userId, oldPassword, newPassword) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  if (!(await authUtil.comparePassword(oldPassword, user.password))) {
+    throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
+  }
+
+  const hashedPassword = await authUtil.hashPassword(newPassword);
+
+  await updateUser(userId, { password: hashedPassword });
+
+  return await getUserById(userId);
+};

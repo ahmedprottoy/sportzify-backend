@@ -28,3 +28,16 @@ exports.profileUpdate = [
 
   body("password").notEmpty().withMessage("Password Required"),
 ];
+
+exports.passwordUpdate = [
+  body("oldPassword").notEmpty().withMessage("Old password required."),
+
+  body("newPassword")
+    .trim()
+    .notEmpty()
+    .withMessage("New password required.")
+    .isStrongPassword()
+    .withMessage(
+      "Password should have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
+    ),
+];

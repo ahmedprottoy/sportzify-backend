@@ -33,3 +33,25 @@ exports.updateUser = catchAsync(async (req, res) => {
 
   res.status(200).json({ user });
 });
+
+exports.passwordUpdate = catchAsync(async (req, res) => {
+  const userId = req.params.id;
+  const { oldPassword, newPassword } = req.body;
+
+  if (userId !== req.user.userId) {
+    throw new AppError(
+      StatusCode.FORBIDDEN,
+      "You are not allowed to perform this action."
+    );
+  }
+
+  const user = await userService.passwordUpdate(
+    userId,
+    oldPassword,
+    newPassword
+  );
+
+  if (user) {
+    res.status(200).json({ message: "Password updated successfully" });
+  }
+});
