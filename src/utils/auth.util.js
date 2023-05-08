@@ -17,6 +17,6 @@ exports.setCookie = async (res, token) => {
   });
 };
 
-exports.destroyCookie = (res) => {
+exports.destroyCookie = async (res) => {
   res.clearCookie("authorization");
 };

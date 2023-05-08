@@ -16,11 +16,20 @@ exports.allBlogs = async (req, res) => {
 
 exports.updateUser = catchAsync(async (req, res) => {
   const userId = req.params.id;
-  console.log(userId);
-  console.log(req.body);
-  const { username, email, password, firstname, lastname, age } = req.body;
+  const { password } = req.body;
+  const modifiedBody = { ...req.body };
+  delete modifiedBody.password;
+
+  if (userId !== req.user.userId) {
+    throw new AppError(
+      StatusCode.FORBIDDEN,
+      "You are not allowed to perform this action."
+    );
+  }
+
+  const user = await userService.updateUser(userId, modifiedBody, password);
 
   // const user = await userService.updateUser(userId, req.body);
 
-  // res.status(200).json({ user });
+  res.status(200).json({ user });
 });
