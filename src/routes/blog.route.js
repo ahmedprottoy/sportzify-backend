@@ -3,17 +3,17 @@ const blogRouter = express.Router();
 const { checkToken } = require("../middlewares/auth.middleware");
 const blogController = require("../controllers/blog.controller");
 
-blogRouter.use(checkToken);
+// blogRouter.use(checkToken);
 
 blogRouter
   .route("/")
   .get(blogController.allBlogs)
-  .post(blogController.createBlog);
+  .post(checkToken, blogController.createBlog);
 
 blogRouter
   .route("/:id")
-  .get(blogController.singleBlog)
-  .patch(blogController.updateBlog)
-  .delete(blogController.deleteBlog);
+  .get(checkToken, blogController.singleBlog)
+  .patch(checkToken, blogController.updateBlog)
+  .delete(checkToken, blogController.deleteBlog);
 
 module.exports = blogRouter;

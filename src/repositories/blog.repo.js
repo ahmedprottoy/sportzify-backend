@@ -21,3 +21,16 @@ exports.createBlog = async (userId, title, content) => {
     },
   };
 };
+
+exports.getAllBlogs = async () => {
+  const blogs = await Blog.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  });
+
+  return blogs;
+};
