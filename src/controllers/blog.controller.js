@@ -28,15 +28,18 @@ exports.singleBlog = catchAsync(async (req, res) => {
 });
 
 exports.updateBlog = catchAsync(async (req, res) => {
-  // const userId = req.user.userId;
   const blogId = req.params.id;
   const modifiedBody = req.body;
 
   const blog = await blogService.updateBlog(blogId, modifiedBody);
 
-  // const blog = await blogService.updateBlog(
+  res.status(200).json(blog);
 });
 
-exports.deleteBlog = async (req, res) => {
-  console.log("delelting blogs on db");
-};
+exports.deleteBlog = catchAsync(async (req, res) => {
+  const blogId = req.params.id;
+  const userId = req.user.userId;
+  await blogService.deleteBlog(userId, blogId);
+
+  res.status(200).json({ message: "Blog deleted successfully" });
+});

@@ -53,3 +53,9 @@ exports.updateBlog = async (blogId, modifiedBody) => {
     where: { blog_id: blogId },
   });
 };
+
+exports.deleteBlog = async (blogId) => {
+  await Blog.destroy({
+    where: { blog_id: blogId },
+  });
+};

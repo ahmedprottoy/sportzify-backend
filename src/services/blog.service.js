@@ -6,6 +6,7 @@ const {
   getAllBlogs,
   getBlogById,
   updateBlog,
+  deleteBlog,
 } = require("../repositories/blog.repo");
 
 exports.createBlog = async (userId, title, content) => {
@@ -30,7 +31,26 @@ exports.updateBlog = async (blogId, modifiedBody) => {
     throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
   }
 
-  const updatedBlog = await updateBlog(blogId, modifiedBody);
+  await updateBlog(blogId, modifiedBody);
 
-  // return updatedBlog;
+  const updatedBlog = await getBlogById(blogId);
+
+  return updatedBlog;
+};
+
+exports.deleteBlog = async (userId, blogId) => {
+  const blog = await getBlogById(blogId);
+
+  if (!blog) {
+    throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
+  }
+
+  if (blog.user_id !== userId) {
+    throw new AppError(
+      StatusCode.UNAUTHORIZED,
+      "You are not authorized to delete this blog"
+    );
+  }
+
+  await deleteBlog(blogId);
 };
