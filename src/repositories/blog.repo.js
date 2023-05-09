@@ -49,11 +49,7 @@ exports.getBlogById = async (id) => {
 };
 
 exports.updateBlog = async (blogId, modifiedBody) => {
-  console.log(blogId);
-  console.log(modifiedBody);
   await Blog.update(modifiedBody, {
     where: { blog_id: blogId },
   });
-
-  // return updatedBlog;
 };
