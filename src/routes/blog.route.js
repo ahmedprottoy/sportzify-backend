@@ -1,7 +1,9 @@
 const express = require("express");
 const blogRouter = express.Router();
-
+const { checkToken } = require("../middlewares/auth.middleware");
 const blogController = require("../controllers/blog.controller");
+
+blogRouter.use(checkToken);
 
 blogRouter
   .route("/")
