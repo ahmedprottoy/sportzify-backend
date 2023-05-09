@@ -11,19 +11,31 @@ exports.createBlog = catchAsync(async (req, res) => {
   res.status(201).json(blog);
 });
 
-exports.allBlogs = async (req, res) => {
+exports.allBlogs = catchAsync(async (req, res) => {
   const blogs = await blogService.getAllBlogs();
 
   res.status(200).json(blogs);
-};
+});
 
-exports.singleBlog = async (req, res) => {
-  console.log("getting single blog of user");
-};
+exports.singleBlog = catchAsync(async (req, res) => {
+  const blog = await blogService.getBlogById(req.params.id);
 
-exports.updateBlog = async (req, res) => {
-  console.log("updating blogs");
-};
+  if (!blog) {
+    throw new AppError("No blog found with this id", 404);
+  }
+
+  res.status(200).json(blog);
+});
+
+exports.updateBlog = catchAsync(async (req, res) => {
+  // const userId = req.user.userId;
+  const blogId = req.params.id;
+  const modifiedBody = req.body;
+
+  const blog = await blogService.updateBlog(blogId, modifiedBody);
+
+  // const blog = await blogService.updateBlog(
+});
 
 exports.deleteBlog = async (req, res) => {
   console.log("delelting blogs on db");

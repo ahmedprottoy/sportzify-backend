@@ -34,3 +34,26 @@ exports.getAllBlogs = async () => {
 
   return blogs;
 };
+
+exports.getBlogById = async (id) => {
+  const blog = await Blog.findByPk(id, {
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  });
+
+  return blog;
+};
+
+exports.updateBlog = async (blogId, modifiedBody) => {
+  console.log(blogId);
+  console.log(modifiedBody);
+  await Blog.update(modifiedBody, {
+    where: { blog_id: blogId },
+  });
+
+  // return updatedBlog;
+};

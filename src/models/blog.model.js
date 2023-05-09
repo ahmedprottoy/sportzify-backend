@@ -14,10 +14,16 @@ const Blog = sequelize.define(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
@@ -28,10 +34,13 @@ const Blog = sequelize.define(
 
 User.hasMany(Blog, {
   foreignKey: { name: "user_id", allowNull: false },
+  indexes: false,
   onDelete: "CASCADE",
 });
+
 Blog.belongsTo(User, {
   foreignKey: { name: "user_id", allowNull: false },
+  indexes: false,
   onDelete: "CASCADE",
 });
 
