@@ -1,5 +1,12 @@
+const blogService = require("../services/blog.service");
+
 exports.createBlog = async (req, res) => {
-  console.log("creating blogs on db");
+  const userId = req.user.userId;
+  const { title, content } = req.body;
+
+  const blog = await blogService.createBlog(userId, title, content);
+
+  res.status(201).json(blog);
 };
 
 exports.allBlogs = async (req, res) => {
