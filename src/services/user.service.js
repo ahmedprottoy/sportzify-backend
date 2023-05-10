@@ -74,5 +74,5 @@ exports.deleteUser = async (userId, password) => {
     throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
   }
 
-  await deleteUser(userId);
+  return await deleteUser(userId);
 };

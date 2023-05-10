@@ -2,6 +2,7 @@ const catchAsync = require("../middlewares/catchAsync");
 const AppError = require("../utils/AppError");
 const userService = require("../services/user.service");
 const StatusCode = require("../utils/Objects/StatusCode");
+const authUtils = require("../utils/auth.util");
 
 exports.user = catchAsync(async (req, res) => {
   const userId = req.params.id;
@@ -72,9 +73,10 @@ exports.deleteUser = catchAsync(async (req, res) => {
     );
   }
 
-  const user = await userService.deleteUser(userId, password);
+  var user = await userService.deleteUser(userId, password);
 
   if (user) {
+    await authUtils.destroyCookie(res);
     res.status(200).json({ message: "User deleted successfully" });
   }
 });
