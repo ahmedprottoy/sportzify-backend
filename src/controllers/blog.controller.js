@@ -1,6 +1,8 @@
 const catchAsync = require("../middlewares/catchAsync");
 const AppError = require("../utils/AppError");
 const blogService = require("../services/blog.service");
+const sendResponse = require("../utils/response.util");
+const StatusCode = require("../utils/Objects/StatusCode");
 
 exports.createBlog = catchAsync(async (req, res) => {
   const userId = req.user.userId;
@@ -8,13 +10,15 @@ exports.createBlog = catchAsync(async (req, res) => {
 
   const blog = await blogService.createBlog(userId, title, content);
 
-  res.status(201).json(blog);
+  // res.status(201).json(blog);
+  sendResponse(req, res, StatusCode.CREATED, "Blog created successfully", blog);
 });
 
 exports.allBlogs = catchAsync(async (req, res) => {
   const blogs = await blogService.getAllBlogs();
 
-  res.status(200).json(blogs);
+  // res.status(200).json(blogs);
+  sendResponse(req, res, StatusCode.OK, "Blogs fetched successfully", blogs);
 });
 
 exports.singleBlog = catchAsync(async (req, res) => {

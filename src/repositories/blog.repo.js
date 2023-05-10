@@ -16,9 +16,7 @@ exports.createBlog = async (userId, title, content) => {
     content: blog.content,
     createdAt: blog.createdAt,
     updatedAt: blog.updatedAt,
-    auther: {
-      name: user.username,
-    },
+    auther: user.username,
   };
 };
 
