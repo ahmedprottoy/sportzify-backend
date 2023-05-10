@@ -18,7 +18,7 @@ userRouter
   .delete(checkToken, userController.deleteUser);
 
 userRouter
-  .route("/:id/password")
+  .route("/password/:id")
   .put(checkToken, passwordUpdate, validate, userController.passwordUpdate);
 
 userRouter.route("/blogs/:id").get(userController.allBlogs);

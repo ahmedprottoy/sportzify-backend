@@ -17,7 +17,7 @@ exports.createBlog = catchAsync(async (req, res) => {
 exports.allBlogs = catchAsync(async (req, res) => {
   const blogs = await blogService.getAllBlogs();
 
-  // res.status(200).json(blogs);
+  //problem
   sendResponse(req, res, StatusCode.OK, "Blogs fetched successfully", blogs);
 });
 
@@ -28,7 +28,9 @@ exports.singleBlog = catchAsync(async (req, res) => {
     throw new AppError("No blog found with this id", 404);
   }
 
-  res.status(200).json(blog);
+  //problem
+
+  sendResponse(req, res, StatusCode.OK, "Blog fetched successfully", blog);
 });
 
 exports.updateBlog = catchAsync(async (req, res) => {
@@ -37,13 +39,14 @@ exports.updateBlog = catchAsync(async (req, res) => {
 
   const blog = await blogService.updateBlog(blogId, modifiedBody);
 
-  res.status(200).json(blog);
+  // problem
+
+  sendResponse(req, res, StatusCode.OK, "Blog updated successfully", blog);
 });
 
 exports.deleteBlog = catchAsync(async (req, res) => {
   const blogId = req.params.id;
   const userId = req.user.userId;
   await blogService.deleteBlog(userId, blogId);
-
-  res.status(200).json({ message: "Blog deleted successfully" });
+  sendResponse(req, res, StatusCode.OK, "Blog deleted successfully");
 });
