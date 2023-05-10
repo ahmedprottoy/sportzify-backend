@@ -5,8 +5,6 @@ const blogController = require("../controllers/blog.controller");
 const { createBlog, updateBlog } = require("../validators/blogs.validator");
 const { validate } = require("../validators/validation");
 
-// blogRouter.use(checkToken);
-
 blogRouter
   .route("/")
   .get(blogController.allBlogs)
