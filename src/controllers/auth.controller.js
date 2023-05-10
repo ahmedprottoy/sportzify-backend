@@ -11,9 +11,7 @@ exports.signUp = catchAsync(async (req, res) => {
 exports.signIn = catchAsync(async (req, res) => {
   console.log("hitting sign in route");
   const { email, password } = req.body;
-  const token = await authService.signIn(email, password);
-
-  await authUtil.setCookie(res, token);
+  const token = await authService.signIn(email, password, res);
 
   res.status(200).json({
     message: "user logged In",
