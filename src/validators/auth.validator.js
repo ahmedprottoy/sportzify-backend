@@ -20,15 +20,6 @@ exports.signUp = [
       "Password should have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
     ),
 
-  // body("confirmPassword")
-  //   .trim()
-  //   .custom((value, { req }) => {
-  //     if (value !== req.body.password) {
-  //       throw new Error("Passwords do not match");
-  //     }
-  //     return true;
-  //   }),
-
   body("firstname")
     .trim()
     .isLength({ min: 3 })
