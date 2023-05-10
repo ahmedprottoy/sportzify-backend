@@ -1,21 +1,13 @@
-require("dotenv").config();
-
-console.log(`${process.env.PORT}`)
-
 const express = require("express");
-const app = express();
+const indexRouter = require("./src/routes/index.route");
+const cookieParser = require("cookie-parser");
 
-// const dotenv = require("dotenv");
-// dotenv.config();
+const app = express();
 
 app.use(express.json());
 
 //cookieParser,cors,morgan
+app.use(cookieParser());
+app.use("/api", indexRouter);
 
-const port = process.env.PORT;
-
-app.listen(port, () => {
-  console.log(`${port} is running`);
-});
-
-
+module.exports = app;
