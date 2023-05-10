@@ -1,23 +1,23 @@
 const User = require("../models/user.model");
 const Blog = require("../models/blog.model");
 
-exports.createBlog = async (userId, title, content) => {
-  const user = await User.findByPk(userId);
+exports.createBlog = async (user_id, title, content) => {
+  const user = await User.findByPk(user_id);
 
   const blog = await Blog.create({
     title,
     content,
-    user_id: userId,
+    user_id,
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
   });
-
-  return {
-    id: blog.blog_id,
-    title: blog.title,
-    content: blog.content,
-    createdAt: blog.createdAt,
-    updatedAt: blog.updatedAt,
-    auther: user.username,
-  };
+  blog.User = { username: user.username };
+  console.log(blog);
+  return blog;
 };
 
 exports.getAllBlogs = async () => {

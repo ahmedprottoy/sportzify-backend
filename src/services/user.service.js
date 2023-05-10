@@ -7,6 +7,8 @@ const {
   deleteUser,
 } = require("../repositories/user.repo");
 const authUtil = require("../utils/auth.util");
+const userDto = require("../dtos/user.dto");
+const blogDto = require("../dtos/blog.dto");
 
 exports.user = async (userId) => {
   const user = await getUserById(userId);
@@ -15,7 +17,7 @@ exports.user = async (userId) => {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
 
-  return user;
+  return new userDto(user);
 };
 
 exports.updateUser = async (userId, updateBody, password) => {
@@ -31,7 +33,8 @@ exports.updateUser = async (userId, updateBody, password) => {
 
   await updateUser(userId, updateBody);
 
-  return await getUserById(userId);
+  const updatedUser = await getUserById(userId);
+  return new userDto(updatedUser);
 };
 
 exports.passwordUpdate = async (userId, oldPassword, newPassword) => {
@@ -58,9 +61,8 @@ exports.allBlogs = async (userId) => {
   if (!user) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
-
   const blogs = await allBlogs(userId);
-  return blogs;
+  return blogs.map((blog) => new blogDto(blog));
 };
 
 exports.deleteUser = async (userId, password) => {

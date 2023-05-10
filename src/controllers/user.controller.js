@@ -7,11 +7,7 @@ const sendResponse = require("../utils/response.util");
 
 exports.user = catchAsync(async (req, res) => {
   const userId = req.params.id;
-
   const user = await userService.user(userId);
-
-  // res.status(200).json({ user });
-
   sendResponse(req, res, StatusCode.OK, "User fetched successfully", user);
 });
 
@@ -33,9 +29,7 @@ exports.updateUser = catchAsync(async (req, res) => {
       "You are not allowed to perform this action."
     );
   }
-
   const user = await userService.updateUser(userId, modifiedBody, password);
-
   sendResponse(req, res, StatusCode.OK, "User updated successfully", user);
 });
 
@@ -49,7 +43,6 @@ exports.passwordUpdate = catchAsync(async (req, res) => {
       "You are not allowed to perform this action."
     );
   }
-
   const user = await userService.passwordUpdate(
     userId,
     oldPassword,
