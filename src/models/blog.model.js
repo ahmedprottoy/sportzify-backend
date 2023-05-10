@@ -5,13 +5,25 @@ const User = require("./user.model");
 const Blog = sequelize.define(
   "Blog",
   {
+    blog_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
   },
   {
@@ -22,10 +34,13 @@ const Blog = sequelize.define(
 
 User.hasMany(Blog, {
   foreignKey: { name: "user_id", allowNull: false },
+  indexes: false,
   onDelete: "CASCADE",
 });
+
 Blog.belongsTo(User, {
   foreignKey: { name: "user_id", allowNull: false },
+  indexes: false,
   onDelete: "CASCADE",
 });
 

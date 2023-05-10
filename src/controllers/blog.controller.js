@@ -1,19 +1,45 @@
-exports.createBlog = async (req, res) => {
-  console.log("creating blogs on db");
-};
+const catchAsync = require("../middlewares/catchAsync");
+const AppError = require("../utils/AppError");
+const blogService = require("../services/blog.service");
 
-exports.allBlogs = async (req, res) => {
-  console.log("getting all blogs on db");
-};
+exports.createBlog = catchAsync(async (req, res) => {
+  const userId = req.user.userId;
+  const { title, content } = req.body;
 
-exports.singleBlog = async (req, res) => {
-  console.log("getting single blog of user");
-};
+  const blog = await blogService.createBlog(userId, title, content);
 
-exports.updateBlog = async (req, res) => {
-  console.log("updating blogs");
-};
+  res.status(201).json(blog);
+});
 
-exports.deleteBlog = async (req, res) => {
-  console.log("delelting blogs on db");
-};
+exports.allBlogs = catchAsync(async (req, res) => {
+  const blogs = await blogService.getAllBlogs();
+
+  res.status(200).json(blogs);
+});
+
+exports.singleBlog = catchAsync(async (req, res) => {
+  const blog = await blogService.getBlogById(req.params.id);
+
+  if (!blog) {
+    throw new AppError("No blog found with this id", 404);
+  }
+
+  res.status(200).json(blog);
+});
+
+exports.updateBlog = catchAsync(async (req, res) => {
+  const blogId = req.params.id;
+  const modifiedBody = req.body;
+
+  const blog = await blogService.updateBlog(blogId, modifiedBody);
+
+  res.status(200).json(blog);
+});
+
+exports.deleteBlog = catchAsync(async (req, res) => {
+  const blogId = req.params.id;
+  const userId = req.user.userId;
+  await blogService.deleteBlog(userId, blogId);
+
+  res.status(200).json({ message: "Blog deleted successfully" });
+});

@@ -1,5 +1,5 @@
 const catchAsync = require("../middlewares/catchAsync");
-// const userModel = require("../models/user.model");
+const AppError = require("../utils/AppError");
 const userService = require("../services/user.service");
 
 exports.user = catchAsync(async (req, res) => {

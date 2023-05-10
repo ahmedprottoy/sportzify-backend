@@ -20,6 +20,4 @@ userRouter
   .route("/:id/password")
   .put(checkToken, passwordUpdate, validate, userController.passwordUpdate);
 
-userRouter.get("/:id/blogs", userController.allBlogs);
-
 module.exports = userRouter;
