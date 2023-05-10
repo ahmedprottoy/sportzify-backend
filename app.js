@@ -12,6 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
+
 app.use("/api", indexRouter);
 
 app.use(errorHandler);

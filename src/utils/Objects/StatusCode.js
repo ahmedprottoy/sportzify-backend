@@ -71,3 +71,5 @@ const StatusCode = {
   NOT_EXTENDED: 510,
   NETWORK_AUTHENTICATION_REQUIRED: 511,
 };
+
+module.exports = StatusCode;

@@ -12,9 +12,11 @@ exports.updateUser = async (user_id, updateBody) => {
 };
 
 exports.allBlogs = async (user_id) => {
-  console.log(user_id);
-
-  const blogs = await Blog.findAll({ where: { user_id: user_id } });
-  console.log(blogs);
+  const blogs = await Blog.findAll({ where: { user_id } });
   return blogs;
+};
+
+exports.deleteUser = async (user_id) => {
+  const deletedUser = await user.destroy({ where: { user_id }, cascade: true });
+  console.log(deletedUser);
 };

@@ -4,6 +4,7 @@ const {
   getUserById,
   updateUser,
   allBlogs,
+  deleteUser,
 } = require("../repositories/user.repo");
 const authUtil = require("../utils/auth.util");
 
@@ -59,4 +60,19 @@ exports.allBlogs = async (userId) => {
   }
 
   const blogs = await allBlogs(userId);
+  return blogs;
+};
+
+exports.deleteUser = async (userId, password) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  if (!(await authUtil.comparePassword(password, user.password))) {
+    throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
+  }
+
+  await deleteUser(userId);
 };
