@@ -1,3 +1,5 @@
+const AppError = require("../utils/AppError");
+
 // error handler middleware
 const errorHandler = (err, req, res, next) => {
   console.log(err);
@@ -7,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
     err.message = "Internal Server Error";
   }
 
-  res.status(err.statusCode).json({
+  res.status(err.statusCode).send({
     status: err.status,
     message: err.message,
   });

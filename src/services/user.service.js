@@ -1,6 +1,10 @@
 const StatusCode = require("../utils/Objects/StatusCode");
 const AppError = require("../utils/AppError");
-const { getUserById, updateUser } = require("../repositories/user.repo");
+const {
+  getUserById,
+  updateUser,
+  allBlogs,
+} = require("../repositories/user.repo");
 const authUtil = require("../utils/auth.util");
 
 exports.user = async (userId) => {
@@ -45,4 +49,14 @@ exports.passwordUpdate = async (userId, oldPassword, newPassword) => {
   await updateUser(userId, { password: hashedPassword });
 
   return await getUserById(userId);
+};
+
+exports.allBlogs = async (userId) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  const blogs = await allBlogs(userId);
 };

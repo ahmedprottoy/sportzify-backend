@@ -1,5 +1,4 @@
 const express = require("express");
-const userRouter = express.Router();
 const userController = require("../controllers/user.controller");
 const {
   profileUpdate,
@@ -7,6 +6,8 @@ const {
 } = require("../validators/user.validator");
 const { validate } = require("../validators/validation");
 const { checkToken } = require("../middlewares/auth.middleware");
+
+const userRouter = express.Router();
 
 // userRouter.get("/", userController.allUsers);
 

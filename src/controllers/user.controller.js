@@ -10,9 +10,13 @@ exports.user = catchAsync(async (req, res) => {
   res.status(200).json({ user });
 });
 
-exports.allBlogs = async (req, res) => {
-  console.log("getting every blogs of specified user");
-};
+exports.allBlogs = catchAsync(async (req, res) => {
+  const userId = req.params.id;
+
+  const blogs = await userService.allBlogs(userId);
+
+  res.status(200).json({ blogs });
+});
 
 exports.updateUser = catchAsync(async (req, res) => {
   const userId = req.params.id;
