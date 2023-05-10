@@ -2,18 +2,18 @@ const express = require("express");
 const blogRouter = express.Router();
 const { checkToken } = require("../middlewares/auth.middleware");
 const blogController = require("../controllers/blog.controller");
-
-blogRouter.use(checkToken);
+const { createBlog, updateBlog } = require("../validators/blogs.validator");
+const { validate } = require("../validators/validation");
 
 blogRouter
   .route("/")
   .get(blogController.allBlogs)
-  .post(blogController.createBlog);
+  .post(checkToken, createBlog, validate, blogController.createBlog);
 
 blogRouter
   .route("/:id")
-  .get(blogController.singleBlog)
-  .patch(blogController.updateBlog)
-  .delete(blogController.deleteBlog);
+  .get(checkToken, blogController.singleBlog)
+  .put(checkToken, blogController.updateBlog)
+  .delete(checkToken, blogController.deleteBlog);
 
 module.exports = blogRouter;

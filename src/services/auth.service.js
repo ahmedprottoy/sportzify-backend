@@ -1,6 +1,6 @@
 const AppError = require("../utils/AppError");
 const uuid = require("uuid");
-
+const authUtil = require("../utils/auth.util");
 const { hashPassword, comparePassword } = require("../utils/auth.util");
 const { generateAccessToken } = require("../utils/jwt.util");
 const StatusCode = require("../utils/Objects/StatusCode");
@@ -44,7 +44,7 @@ exports.createUser = async ({
   return User;
 };
 
-exports.signIn = async (email, password) => {
+exports.signIn = async (email, password, res) => {
   const user = await getUserByEmail(email);
 
   if (!user) {
@@ -56,5 +56,8 @@ exports.signIn = async (email, password) => {
   }
 
   const token = await generateAccessToken(user.user_id);
+
+  await authUtil.setCookie(res, token);
+
   return token;
 };
