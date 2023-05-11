@@ -7,9 +7,10 @@ const {
 const { validate } = require("../validators/validation");
 const { checkToken } = require("../middlewares/auth.middleware");
 
-const userRouter = express.Router();
+const uploadController = require("../controllers/fileUpload.controller");
+const upload = require("../config/multer.config");
 
-// userRouter.get("/", userController.allUsers);
+const userRouter = express.Router();
 
 userRouter
   .route("/:id")
@@ -22,5 +23,9 @@ userRouter
   .put(checkToken, passwordUpdate, validate, userController.passwordUpdate);
 
 userRouter.route("/blogs/:id").get(userController.allBlogs);
+
+userRouter
+  .route("/image/:id")
+  .post(checkToken, upload.single("image"), uploadController.uploadImage);
 
 module.exports = userRouter;
