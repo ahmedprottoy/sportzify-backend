@@ -14,10 +14,13 @@ const userRouter = express.Router();
 userRouter
   .route("/:id")
   .get(userController.user)
-  .put(checkToken, profileUpdate, validate, userController.updateUser);
+  .put(checkToken, profileUpdate, validate, userController.updateUser)
+  .delete(checkToken, userController.deleteUser);
 
 userRouter
-  .route("/:id/password")
+  .route("/password/:id")
   .put(checkToken, passwordUpdate, validate, userController.passwordUpdate);
+
+userRouter.route("/blogs/:id").get(userController.allBlogs);
 
 module.exports = userRouter;
