@@ -1,8 +1,9 @@
 const authUtil = require("../utils/jwt.util");
 const AppError = require("../utils/AppError");
 const StatusCode = require("../utils/Objects/StatusCode");
+const catchAsync = require("./catchAsync");
 
-exports.checkToken = async (req, res, next) => {
+exports.checkToken = catchAsync(async (req, res, next) => {
   const token = await authUtil.getCookie(req);
 
   if (!token) {
@@ -16,4 +17,14 @@ exports.checkToken = async (req, res, next) => {
   } catch (error) {
     throw new AppError(StatusCode.UNAUTHORIZED, "Invalid Token");
   }
-};
+});
+
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  const token = await authUtil.getCookie(req);
+
+  if (token) {
+    throw new AppError(StatusCode.UNAUTHORIZED, "Already Logged In");
+  }
+
+  return next();
+});
