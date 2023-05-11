@@ -91,3 +91,17 @@ exports.updateImage = async (userId, imageUrl, imagePublicId) => {
   const updatedUser = await getUserById(userId);
   return new userDto(updatedUser);
 };
+
+exports.deleteUserImage = async (userId) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  await updateUser(userId, { imageUrl: null, imagePublicId: null });
+  await authUtil.deleteUserImage(user.imagePublicId);
+
+  const updatedUser = await getUserById(userId);
+  return new userDto(updatedUser);
+};

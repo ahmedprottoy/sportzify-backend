@@ -31,6 +31,7 @@ userRouter
     upload.single("image"),
     fileUpload.uploadImage,
     userController.updateImage
-  );
+  )
+  .delete(checkToken, userController.deleteUserImage);
 
 module.exports = userRouter;
