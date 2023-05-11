@@ -8,20 +8,22 @@ const {
   updateBlog,
   deleteBlog,
 } = require("../repositories/blog.repo");
+const blogDto = require("../dtos/blog.dto");
 
 exports.createBlog = async (userId, title, content) => {
   const newBlog = await createBlog(userId, title, content);
-  return newBlog;
+  console.log(newBlog);
+  return new blogDto(newBlog);
 };
 
 exports.getAllBlogs = async () => {
   const blogs = await getAllBlogs();
-  return blogs;
+  return blogs.map((blog) => new blogDto(blog));
 };
 
 exports.getBlogById = async (id) => {
   const blog = await getBlogById(id);
-  return blog;
+  return new blogDto(blog);
 };
 
 exports.updateBlog = async (blogId, modifiedBody) => {
@@ -35,7 +37,7 @@ exports.updateBlog = async (blogId, modifiedBody) => {
 
   const updatedBlog = await getBlogById(blogId);
 
-  return updatedBlog;
+  return new blogDto(updatedBlog);
 };
 
 exports.deleteBlog = async (userId, blogId) => {

@@ -1,11 +1,13 @@
 const authService = require("../services/auth.service");
 const catchAsync = require("../middlewares/catchAsync");
 const authUtil = require("../utils/auth.util");
+const sendResponse = require("../utils/response.util");
+const StatusCode = require("../utils/Objects/StatusCode");
 
 exports.signUp = catchAsync(async (req, res) => {
   const user = await authService.createUser(req.body);
 
-  res.status(201).json({ message: "user Created" });
+  sendResponse(req, res, StatusCode.CREATED, "user Created");
 });
 
 exports.signIn = catchAsync(async (req, res) => {
@@ -13,14 +15,11 @@ exports.signIn = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   const token = await authService.signIn(email, password, res);
 
-  res.status(200).json({
-    message: "user logged In",
-    token: token,
-  });
+  sendResponse(req, res, StatusCode.OK, "user logged In", { token });
 });
 
 exports.signOut = catchAsync(async (req, res) => {
   await authUtil.destroyCookie(res);
 
-  res.status(200).json({ message: "user logged out" });
+  sendResponse(req, res, StatusCode.OK, "user logged out");
 });
