@@ -7,7 +7,7 @@ const {
 const { validate } = require("../validators/validation");
 const { checkToken } = require("../middlewares/auth.middleware");
 
-const uploadController = require("../controllers/fileUpload.controller");
+const fileUpload = require("../middlewares/fileUpload.middleware");
 const upload = require("../config/multer.config");
 
 const userRouter = express.Router();
@@ -26,6 +26,11 @@ userRouter.route("/blogs/:id").get(userController.allBlogs);
 
 userRouter
   .route("/image/:id")
-  .post(checkToken, upload.single("image"), uploadController.uploadImage);
+  .post(
+    checkToken,
+    upload.single("image"),
+    fileUpload.uploadImage,
+    userController.updateImage
+  );
 
 module.exports = userRouter;

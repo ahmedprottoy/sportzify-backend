@@ -6,6 +6,7 @@ class userDto {
     this.firstname = user.firstname;
     this.lastname = user.lastname;
     this.age = user.age;
+    this.imageUrl = user.imageUrl;
     this.createdAt = user.createdAt;
     this.updatedAt = user.updatedAt;
   }

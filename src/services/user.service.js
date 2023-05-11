@@ -78,3 +78,16 @@ exports.deleteUser = async (userId, password) => {
 
   return await deleteUser(userId);
 };
+
+exports.updateImage = async (userId, imageUrl, imagePublicId) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new AppError(StatusCode.NOT_FOUND, "User not found");
+  }
+
+  await updateUser(userId, { imageUrl, imagePublicId });
+
+  const updatedUser = await getUserById(userId);
+  return new userDto(updatedUser);
+};

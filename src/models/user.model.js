@@ -54,6 +54,18 @@ const User = sequelize.define(
         min: 18,
       },
     },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: true,
+        notEmpty: true,
+      },
+    },
+    imagePublicId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,

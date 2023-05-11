@@ -1,6 +1,6 @@
 const cloudinary = require("../config/cloudinary.config");
 
-exports.uploadImage = (req, res) => {
+exports.uploadImage = (req, res, next) => {
   // Upload the image to Cloudinary
   const file = req.file;
   cloudinary.uploader
@@ -10,7 +10,9 @@ exports.uploadImage = (req, res) => {
         res.status(500).json({ error: "Failed to upload image" });
       } else {
         console.log("Image uploaded successfully");
-        res.status(200).json({ url: result.url });
+        req.file = result;
+
+        next();
       }
     })
     .end(file.buffer);
