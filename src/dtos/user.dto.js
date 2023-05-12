@@ -3,9 +3,7 @@ class userDto {
     this.id = user.user_id;
     this.username = user.username;
     this.email = user.email;
-    this.firstname = user.firstname;
-    this.lastname = user.lastname;
-    this.age = user.age;
+    this.fullname = user.fullname;
     this.imageUrl = user.imageUrl;
     this.createdAt = user.createdAt;
     this.updatedAt = user.updatedAt;

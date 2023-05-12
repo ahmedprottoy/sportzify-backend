@@ -8,7 +8,7 @@ const upload = require("../config/multer.config");
 const userRouter = express.Router();
 
 userRouter
-  .route("/:id")
+  .route("/:username")
   .get(userController.user)
   .put(
     checkToken,
@@ -19,7 +19,7 @@ userRouter
   .delete(checkToken, userController.deleteUser);
 
 userRouter
-  .route("/password/:id")
+  .route("/password/:username")
   .put(
     checkToken,
     userValidator.passwordUpdate,
@@ -27,10 +27,10 @@ userRouter
     userController.passwordUpdate
   );
 
-userRouter.route("/blogs/:id").get(userController.allBlogs);
+userRouter.route("/blogs/:username").get(userController.allBlogs);
 
 userRouter
-  .route("/image/:id")
+  .route("/image/:username")
   .post(
     checkToken,
     upload.single("image"),

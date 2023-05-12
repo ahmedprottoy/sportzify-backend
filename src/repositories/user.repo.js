@@ -1,6 +1,11 @@
 const User = require("../models/user.model");
 const Blog = require("../models/blog.model");
 
+exports.getUserIdByUsername = async (username) => {
+  const user = await User.findOne({ where: { username } });
+  return user.user_id;
+};
+
 exports.getUserById = async (user_id) => {
   return await User.findOne({ where: { user_id } });
 };
