@@ -1,4 +1,10 @@
-// generate a function that will wrap the async function and catch any errors that occur when it is called using try catch
+/**
+ * Wrapper function to catch asynchronous errors in Express middleware or route handlers.
+ *
+ * @param {Function} fn - Asynchronous function to be wrapped.
+ * @returns {Function} - Express middleware function with error handling.
+ * @memberof module:catchAsync
+ */
 const catchAsync = (fn) => {
   return async (req, res, next) => {
     try {
@@ -10,3 +16,8 @@ const catchAsync = (fn) => {
 };
 
 module.exports = catchAsync;
+
+/**
+ * Represents a module for handling asynchronous error catching in Express middleware or route handlers.
+ * @module catchAsync
+ */
