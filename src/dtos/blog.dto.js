@@ -1,3 +1,8 @@
+/** @module dtos */
+
+/**
+ * A class representing a blog DTO
+ */
 class blogDto {
   constructor(blog) {
     this.id = blog.blog_id;

@@ -1,3 +1,8 @@
+/** @module dtos */
+
+/**
+ * A class representing a user DTO
+ */
 class userDto {
   constructor(user) {
     this.id = user.user_id;
