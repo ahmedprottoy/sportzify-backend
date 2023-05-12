@@ -43,7 +43,6 @@ exports.signIn = async (email, password, res) => {
   if (!(await comparePassword(password, user.password))) {
     throw new AppError(StatusCode.UNAUTHORIZED, "Incorrect password");
   }
-  console.log(`usernmae: ${user.username}`);
 
   const token = await generateAccessToken(user.username);
 

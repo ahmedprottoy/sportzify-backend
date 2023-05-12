@@ -87,13 +87,13 @@ exports.updateImage = catchAsync(async (req, res) => {
 });
 
 exports.deleteUserImage = catchAsync(async (req, res) => {
-  const userId = req.params.id;
-  if (userId !== req.user.userId) {
+  const username = req.params.username;
+  if (username !== req.user.username) {
     throw new AppError(
       StatusCode.FORBIDDEN,
       "You are not allowed to perform this action."
     );
   }
-  const user = await userService.deleteUserImage(userId);
+  const user = await userService.deleteUserImage(username);
   sendResponse(req, res, StatusCode.OK, "Image deleted successfully", user);
 });

@@ -8,19 +8,19 @@ const authUtil = require("../utils/auth.util");
 //   updateBlog,
 //   deleteBlog,
 // } = require("../repositories/blog.repo");
-
+const userRepo = require("../repositories/user.repo");
 const blogRepo = require("../repositories/blog.repo");
 const blogDto = require("../dtos/blog.dto");
 
 exports.createBlog = async (
-  userId,
+  username,
   title,
   content,
   imageUrl,
   imagePublicId
 ) => {
   const newBlog = await blogRepo.createBlog(
-    userId,
+    username,
     title,
     content,
     imageUrl,
@@ -54,15 +54,15 @@ exports.updateBlog = async (blogId, modifiedBody) => {
   return new blogDto(updatedBlog);
 };
 
-exports.deleteBlog = async (userId, blogId) => {
+exports.deleteBlog = async (username, blogId) => {
   const blog = await blogRepo.getBlogById(blogId);
+  const userId = await userRepo.getUserIdByUsername(username);
 
   if (!blog) {
     throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
   }
 
   const imagePublicId = blog.imagePublicId;
-  console.log(imagePublicId);
 
   if (blog.user_id !== userId) {
     throw new AppError(

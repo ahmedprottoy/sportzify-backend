@@ -32,7 +32,7 @@ exports.updateUser = async (username, updateBody, password) => {
   }
 
   if (!(await authUtil.comparePassword(password, user.password))) {
-    throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
+    throw new AppError(StatusCode.UNAUTHORIZED, "Password is incorrect");
   }
 
   await userRepo.updateUser(userId, updateBody);
@@ -50,7 +50,7 @@ exports.passwordUpdate = async (username, oldPassword, newPassword) => {
   }
 
   if (!(await authUtil.comparePassword(oldPassword, user.password))) {
-    throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
+    throw new AppError(StatusCode.UNAUTHORIZED, "Password is incorrect");
   }
 
   const hashedPassword = await authUtil.hashPassword(newPassword);

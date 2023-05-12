@@ -5,13 +5,13 @@ const sendResponse = require("../utils/response.util");
 const StatusCode = require("../utils/Objects/StatusCode");
 
 exports.createBlog = catchAsync(async (req, res) => {
-  const userId = req.user.userId;
+  const username = req.user.username;
   const { title, content } = req.body;
   const imageUrl = req.file.url;
   const imagePublicId = req.file.public_id;
 
   const blog = await blogService.createBlog(
-    userId,
+    username,
     title,
     content,
     imageUrl,
@@ -42,7 +42,7 @@ exports.updateBlog = catchAsync(async (req, res) => {
 
 exports.deleteBlog = catchAsync(async (req, res) => {
   const blogId = req.params.id;
-  const userId = req.user.userId;
-  await blogService.deleteBlog(userId, blogId);
-  sendResponse(req, res, StatusCode.OK, "Blog deleted successfully");
+  const username = req.user.username;
+  await blogService.deleteBlog(username, blogId);
+  sendResponse(req, res, StatusCode.NO_CONTENT, "Blog deleted successfully");
 });

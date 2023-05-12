@@ -2,20 +2,20 @@ const User = require("../models/user.model");
 const Blog = require("../models/blog.model");
 
 exports.createBlog = async (
-  user_id,
+  username,
   title,
   content,
   imageUrl,
   imagePublicId
 ) => {
-  const user = await User.findByPk(user_id);
+  const user = await User.findOne({ where: { username } });
 
   const blog = await Blog.create({
     title,
     content,
     imageUrl,
     imagePublicId,
-    user_id,
+    user_id: user.user_id,
     include: [
       {
         model: User,
