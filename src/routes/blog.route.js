@@ -2,13 +2,22 @@ const express = require("express");
 const blogRouter = express.Router();
 const { checkToken } = require("../middlewares/auth.middleware");
 const blogController = require("../controllers/blog.controller");
-const { createBlog, updateBlog } = require("../validators/blogs.validator");
+const blogValidator = require("../validators/blogs.validator");
 const { validate } = require("../validators/validation");
+const fileUpload = require("../middlewares/fileUpload.middleware");
+const upload = require("../config/multer.config");
 
 blogRouter
   .route("/")
   .get(blogController.allBlogs)
-  .post(checkToken, createBlog, validate, blogController.createBlog);
+  .post(
+    checkToken,
+    upload.single("image"),
+    blogValidator.createBlog,
+    validate,
+    fileUpload.uploadImage,
+    blogController.createBlog
+  );
 
 blogRouter
   .route("/:id")

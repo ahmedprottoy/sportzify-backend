@@ -100,7 +100,7 @@ exports.deleteUserImage = async (userId) => {
   }
 
   await updateUser(userId, { imageUrl: null, imagePublicId: null });
-  await authUtil.deleteUserImage(user.imagePublicId);
+  await authUtil.deleteImage(user.imagePublicId);
 
   const updatedUser = await getUserById(userId);
   return new userDto(updatedUser);

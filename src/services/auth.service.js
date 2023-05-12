@@ -10,21 +10,12 @@ const {
   createUser,
 } = require("../repositories/auth.repo");
 
-exports.createUser = async ({
-  username,
-  email,
-  firstname,
-  lastname,
-  age,
-  password,
-}) => {
+exports.createUser = async ({ username, email, fullname, password }) => {
   if (await getUserByEmail(email)) {
-    console.log("hitting email");
     throw new AppError(StatusCode.CONFLICT, "Email already exists");
   }
 
   if (await getUserByUsername(username)) {
-    console.log("hitting username");
     throw new AppError(StatusCode.CONFLICT, "Username already exists");
   }
 
@@ -36,9 +27,7 @@ exports.createUser = async ({
     username,
     password: hashedPassword,
     email,
-    firstname,
-    lastname,
-    age,
+    fullname,
   });
 
   return User;

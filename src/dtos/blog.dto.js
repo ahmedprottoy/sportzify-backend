@@ -5,6 +5,7 @@ class blogDto {
     this.content = blog.content;
     this.author = blog.User.username;
     this.postedAt = blog.createdAt;
+    this.imageUrl = blog.imageUrl;
   }
 }
 module.exports = blogDto;

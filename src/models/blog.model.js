@@ -25,6 +25,18 @@ const Blog = sequelize.define(
         notEmpty: true,
       },
     },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: true,
+        notEmpty: true,
+      },
+    },
+    imagePublicId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,

@@ -22,6 +22,6 @@ exports.destroyCookie = async (res) => {
   res.clearCookie("authorization");
 };
 
-exports.deleteUserImage = async (imageId) => {
+exports.deleteImage = async (imageId) => {
   await cloudinary.uploader.destroy(imageId);
 };
