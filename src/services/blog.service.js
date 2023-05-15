@@ -101,12 +101,12 @@ exports.updateBlog = async (blogId, modifiedBody) => {
  */
 exports.deleteBlog = async (username, blogId) => {
   const blog =await blogRepo.getBlogById(blogId);
-  const userId = await userRepo.getUserIdByUsername(username);
-
+  
   if (!blog) {
     throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
   }
-
+  
+  const userId = await userRepo.getUserIdByUsername(username);
   const imagePublicId = blog.imagePublicId;
 
   if (blog.user_id !== userId) {

@@ -22,7 +22,7 @@ const sequelize = new Sequelize(db_url, {
 });
 
 // Test the database connection
-(async () => {
+const connectDatabase = async () => {
   try {
     /**
      * Authenticates the database connection.
@@ -49,7 +49,9 @@ const sequelize = new Sequelize(db_url, {
       error.message
     );
   }
-})();
-
+};
 // Exported module
-module.exports = sequelize;
+module.exports = {
+  connectDatabase,
+  sequelize,
+};
