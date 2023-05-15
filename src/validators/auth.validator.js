@@ -1,5 +1,11 @@
 const { body } = require("express-validator");
 
+/**
+ * Validates the request body for the signUp route.
+ * @name signUp
+ * @memberof module:authValidator
+ */
+
 exports.signUp = [
   body("email")
     .isEmail()
@@ -28,9 +34,22 @@ exports.signUp = [
     .withMessage("Fullname must be at most 20 characters long"),
 ];
 
+
+/**
+ * Validates the request body for the signIn route.
+ * @name signIn
+ * @memberof module:authValidator
+ */
 exports.signIn = [
   body("email")
     .isEmail()
     .withMessage("Please enter a valid email")
     .normalizeEmail(),
 ];
+
+
+/**
+ * Validates the request body for the sign-in and sign-up routes.
+ * @module authValidator
+ * @requires express-validator
+ */
