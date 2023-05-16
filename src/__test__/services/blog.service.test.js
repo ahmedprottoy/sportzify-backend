@@ -17,7 +17,7 @@ describe("blogService", () => {
 
   describe("createBlog", () => {
     it("should create a new blog", async () => {
-      const username = "john_doe"
+      const username = "john_doe";
       const title = "Sample Blog";
       const content = "This is a sample blog";
       const imageUrl = "https://example.com/sample.jpg";

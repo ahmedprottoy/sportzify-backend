@@ -17,12 +17,12 @@ const blogDto = require("../dtos/blog.dto");
  */
 exports.user = async (username) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
 
-  if (!user) {
+  if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
 
+  const user = await userRepo.getUserById(userId);
   return new userDto(user);
 };
 
@@ -40,11 +40,12 @@ exports.user = async (username) => {
  */
 exports.updateUser = async (username, updateBody, password) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
 
-  if (!user) {
+  if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
+
+  const user = await userRepo.getUserById(userId);
 
   if (!(await authUtil.comparePassword(password, user.password))) {
     throw new AppError(StatusCode.UNAUTHORIZED, "Password is incorrect");
@@ -70,11 +71,11 @@ exports.updateUser = async (username, updateBody, password) => {
  */
 exports.passwordUpdate = async (username, oldPassword, newPassword) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
-
-  if (!user) {
+  
+  if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
+  const user = await userRepo.getUserById(userId);
 
   if (!(await authUtil.comparePassword(oldPassword, user.password))) {
     throw new AppError(StatusCode.UNAUTHORIZED, "Password is incorrect");
@@ -99,9 +100,8 @@ exports.passwordUpdate = async (username, oldPassword, newPassword) => {
  */
 exports.allBlogs = async (username) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
 
-  if (!user) {
+  if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
 
@@ -120,20 +120,20 @@ exports.allBlogs = async (username) => {
  * @returns {Promise<void>} A promise that resolves when the user is deleted.
  * @throws {AppError} If an error occurs while deleting the user, no user is found with the provided username, or the password is incorrect.
  */
-exports.deleteUser = async (username, password) => {
-  const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
+// exports.deleteUser = async (username, password) => {
+//   const userId = await userRepo.getUserIdByUsername(username);
+//   const user = await userRepo.getUserById(userId);
 
-  if (!user) {
-    throw new AppError(StatusCode.NOT_FOUND, "User not found");
-  }
+//   if (!user) {
+//     throw new AppError(StatusCode.NOT_FOUND, "User not found");
+//   }
 
-  if (!(await authUtil.comparePassword(password, user.password))) {
-    throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
-  }
+//   if (!(await authUtil.comparePassword(password, user.password))) {
+//     throw new AppError(StatusCode.BAD_REQUEST, "Password is incorrect");
+//   }
 
-  return await userRepo.deleteUser(userId);
-};
+//   return await userRepo.deleteUser(userId);
+// };
 
 /**
  * Updates the image of a user.
@@ -149,11 +149,11 @@ exports.deleteUser = async (username, password) => {
  */
 exports.updateImage = async (username, imageUrl, imagePublicId) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  const user = await userRepo.getUserById(userId);
-
-  if (!user) {
+  
+  if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
+  
 
   await userRepo.updateUser(userId, { imageUrl, imagePublicId });
 
@@ -191,5 +191,3 @@ exports.deleteUserImage = async (username) => {
  *
  * @module userService
  */
-
-
