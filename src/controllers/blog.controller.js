@@ -14,7 +14,7 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves when the blog is created.
  */
-exports.createBlog = catchAsync(async (req, res) => {
+exports.createBlog = async (req, res) => {
   const username = req.user.username;
   const { title, content } = req.body;
   const imageUrl = req.file.url;
@@ -27,7 +27,7 @@ exports.createBlog = catchAsync(async (req, res) => {
     imagePublicId
   );
   sendResponse(req, res, StatusCode.CREATED, "Blog created successfully", blog);
-});
+};
 
 /**
  * Retrieves all blogs.
@@ -39,10 +39,10 @@ exports.createBlog = catchAsync(async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves with the array of blogs.
  */
-exports.allBlogs = catchAsync(async (req, res) => {
+exports.allBlogs = async (req, res) => {
   const blogs = await blogService.getAllBlogs();
   sendResponse(req, res, StatusCode.OK, "Blogs fetched successfully", blogs);
-});
+};
 
 /**
  * Retrieves a single blog by its ID.
@@ -55,13 +55,13 @@ exports.allBlogs = catchAsync(async (req, res) => {
  * @returns {Promise<void>} A promise that resolves with the fetched blog.
  * @throws {AppError} If no blog is found with the provided ID.
  */
-exports.singleBlog = catchAsync(async (req, res) => {
+exports.singleBlog = async (req, res) => {
   const blog = await blogService.getBlogById(req.params.id);
   if (!blog) {
     throw new AppError("No blog found with this id", 404);
   }
   sendResponse(req, res, StatusCode.OK, "Blog fetched successfully", blog);
-});
+};
 
 /**
  * Updates a blog.
@@ -73,12 +73,12 @@ exports.singleBlog = catchAsync(async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves with the updated blog.
  */
-exports.updateBlog = catchAsync(async (req, res) => {
+exports.updateBlog = async (req, res) => {
   const blogId = req.params.id;
   const modifiedBody = req.body;
   const blog = await blogService.updateBlog(blogId, modifiedBody);
   sendResponse(req, res, StatusCode.OK, "Blog updated successfully", blog);
-});
+};
 
 /**
  * Deletes a blog.
@@ -90,12 +90,12 @@ exports.updateBlog = catchAsync(async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves when the blog is deleted.
  */
-exports.deleteBlog = catchAsync(async (req, res) => {
+exports.deleteBlog = async (req, res) => {
   const blogId = req.params.id;
   const username = req.user.username;
   await blogService.deleteBlog(username, blogId);
   sendResponse(req, res, StatusCode.NO_CONTENT, "Blog deleted successfully");
-});
+};
 
 /**
  * Represents a module for handling blog related operations.

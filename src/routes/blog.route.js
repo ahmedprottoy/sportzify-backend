@@ -6,6 +6,7 @@ const blogValidator = require("../validators/blogs.validator");
 const { validate } = require("../validators/validation");
 const fileUpload = require("../middlewares/fileUpload.middleware");
 const upload = require("../config/multer.config");
+const catchAsync = require("../middlewares/catchAsync");
 
 /**
  * Express router for blog routes
@@ -25,14 +26,14 @@ const upload = require("../config/multer.config");
  */
 blogRouter
   .route("/")
-  .get(blogController.allBlogs)
+  .get(catchAsync(blogController.allBlogs))
   .post(
     checkToken,
     upload.single("image"),
     blogValidator.createBlog,
     validate,
     fileUpload.uploadImage,
-    blogController.createBlog
+    catchAsync(blogController.createBlog)
   );
 
 /**
@@ -46,8 +47,8 @@ blogRouter
  */
 blogRouter
   .route("/:id")
-  .get(checkToken, blogController.singleBlog)
-  .put(checkToken, blogController.updateBlog)
-  .delete(checkToken, blogController.deleteBlog);
+  .get(checkToken, catchAsync(blogController.singleBlog))
+  .put(checkToken, catchAsync(blogController.updateBlog))
+  .delete(checkToken,catchAsync (blogController.deleteBlog));
 
 module.exports = blogRouter;

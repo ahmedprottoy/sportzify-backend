@@ -17,10 +17,10 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves when the user is created.
  */
-exports.signUp = catchAsync(async (req, res) => {
+exports.signUp = async (req, res, next) => {
   const user = await authService.createUser(req.body);
   sendResponse(req, res, StatusCode.CREATED, "User created");
-});
+};
 
 /**
  * Signs in a user.
@@ -32,12 +32,12 @@ exports.signUp = catchAsync(async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves when the user is logged in.
  */
-exports.signIn = catchAsync(async (req, res) => {
+exports.signIn = async (req, res, next) => {
   console.log("hitting sign in route");
   const { email, password } = req.body;
   const token = await authService.signIn(email, password, res);
   sendResponse(req, res, StatusCode.OK, "User logged in", { token });
-});
+};
 
 /**
  * Signs out a user.
@@ -49,10 +49,10 @@ exports.signIn = catchAsync(async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} A promise that resolves when the user is logged out.
  */
-exports.signOut = catchAsync(async (req, res) => {
+exports.signOut = async (req, res, next) => {
   await authUtil.destroyCookie(res);
   sendResponse(req, res, StatusCode.OK, "User logged out");
-});
+};
 
 /**
  * Represents a module for handling authentication-related controllers.

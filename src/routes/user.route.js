@@ -5,6 +5,7 @@ const { validate } = require("../validators/validation");
 const { checkToken } = require("../middlewares/auth.middleware");
 const fileUpload = require("../middlewares/fileUpload.middleware");
 const upload = require("../config/multer.config");
+const catchAsync = require("../middlewares/catchAsync");
 const userRouter = express.Router();
 
 /**
@@ -27,14 +28,14 @@ const userRouter = express.Router();
 
 userRouter
   .route("/:username")
-  .get(userController.user)
+  .get(catchAsync(userController.user))
   .put(
     checkToken,
     userValidator.profileUpdate,
     validate,
-    userController.updateUser
+    catchAsync(userController.updateUser)
   )
-  .delete(checkToken, userController.deleteUser);
+  .delete(checkToken, catchAsync(userController.deleteUser));
 
 
 /**
@@ -53,7 +54,7 @@ userRouter
     checkToken,
     userValidator.passwordUpdate,
     validate,
-    userController.passwordUpdate
+   catchAsync (userController.passwordUpdate)
   );
 
 
@@ -68,7 +69,7 @@ userRouter
  * @param {Function} validation - Express validation middleware function
  */
  
-userRouter.route("/blogs/:username").get(userController.allBlogs);
+userRouter.route("/blogs/:username").get(catchAsync(userController.allBlogs));
 
 
 /**
@@ -88,8 +89,8 @@ userRouter
     checkToken,
     upload.single("image"),
     fileUpload.uploadImage,
-    userController.updateImage
+    catchAsync(userController.updateImage)
   )
-  .delete(checkToken, userController.deleteUserImage);
+  .delete(checkToken, catchAsync(userController.deleteUserImage));
 
 module.exports = userRouter;

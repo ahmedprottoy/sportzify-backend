@@ -15,12 +15,12 @@ const sendResponse = require("../utils/response.util");
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.user = catchAsync(async (req, res) => {
+exports.user = async (req, res) => {
   const username = req.params.username;
 
   const user = await userService.user(username);
   sendResponse(req, res, StatusCode.OK, "User fetched successfully", user);
-});
+};
 
 /**
  * Get all blogs of a user
@@ -32,11 +32,11 @@ exports.user = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.allBlogs = catchAsync(async (req, res) => {
+exports.allBlogs = async (req, res) => {
   const username = req.params.username;
   const blogs = await userService.allBlogs(username);
   sendResponse(req, res, StatusCode.OK, "Blogs fetched successfully", blogs);
-});
+};
 
 /**
  * Update user by username
@@ -48,7 +48,7 @@ exports.allBlogs = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.updateUser = catchAsync(async (req, res) => {
+exports.updateUser = async (req, res) => {
   const username = req.params.username;
   const { password } = req.body;
   const modifiedBody = { ...req.body };
@@ -62,7 +62,7 @@ exports.updateUser = catchAsync(async (req, res) => {
   }
   const user = await userService.updateUser(username, modifiedBody, password);
   sendResponse(req, res, StatusCode.OK, "User updated successfully", user);
-});
+};
 
 /**
  * Update user password by username
@@ -74,7 +74,7 @@ exports.updateUser = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.passwordUpdate = catchAsync(async (req, res) => {
+exports.passwordUpdate = async (req, res) => {
   const username = req.params.username;
   const { oldPassword, newPassword } = req.body;
 
@@ -92,7 +92,7 @@ exports.passwordUpdate = catchAsync(async (req, res) => {
   if (user) {
     sendResponse(req, res, StatusCode.OK, "Password updated successfully");
   }
-});
+};
 
 /**
  * Delete user by username
@@ -105,7 +105,7 @@ exports.passwordUpdate = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.deleteUser = catchAsync(async (req, res) => {
+exports.deleteUser = async (req, res) => {
   const username = req.params.username;
   const password = req.body.password;
   if (username !== req.user.username) {
@@ -119,7 +119,7 @@ exports.deleteUser = catchAsync(async (req, res) => {
     await authUtils.destroyCookie(res);
     sendResponse(req, res, StatusCode.OK, "User deleted successfully");
   }
-});
+};
 
 /**
  * Update user image by username
@@ -132,7 +132,7 @@ exports.deleteUser = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.updateImage = catchAsync(async (req, res) => {
+exports.updateImage = async (req, res) => {
   const username = req.params.username;
   const imageUrl = req.file.url;
   const imagePublicId = req.file.public_id;
@@ -146,7 +146,7 @@ exports.updateImage = catchAsync(async (req, res) => {
   const user = await userService.updateImage(username, imageUrl, imagePublicId);
 
   sendResponse(req, res, StatusCode.OK, "Image updated successfully", user);
-});
+};
 
 /**
  * Delete user image by username
@@ -158,7 +158,7 @@ exports.updateImage = catchAsync(async (req, res) => {
  * @param {Object} res - Express response object
  * @returns {Promise<void>}
  */
-exports.deleteUserImage = catchAsync(async (req, res) => {
+exports.deleteUserImage = async (req, res) => {
   const username = req.params.username;
   if (username !== req.user.username) {
     throw new AppError(
@@ -168,7 +168,7 @@ exports.deleteUserImage = catchAsync(async (req, res) => {
   }
   const user = await userService.deleteUserImage(username);
   sendResponse(req, res, StatusCode.OK, "Image deleted successfully", user);
-});
+};
 
 /**
  * Represents a module for handling user related operations such as fetching user, updating user, deleting user, etc.

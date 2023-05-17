@@ -2,7 +2,8 @@ const express = require("express");
 const authController = require("../controllers/auth.controller");
 const authValidator = require("../validators/auth.validator");
 const { validate } = require("../validators/validation");
-const { checkToken, isLoggedIn } = require("../middlewares/auth.middleware");
+const { isLoggedIn } = require("../middlewares/auth.middleware");
+const catchAsync = require("../middlewares/catchAsync");
 
 /**
  * Express router for authentication routes
@@ -26,7 +27,7 @@ authRouter.post(
   isLoggedIn,
   authValidator.signUp,
   validate,
-  authController.signUp
+  catchAsync(authController.signUp)
 );
 
 /**
@@ -44,7 +45,7 @@ authRouter.post(
   isLoggedIn,
   authValidator.signIn,
   validate,
-  authController.signIn
+  catchAsync(authController.signIn)
 );
 
 /**
@@ -55,6 +56,6 @@ authRouter.post(
  * @param {string} path - Express route path
  * @param {Function} controller - Express controller function
  */
-authRouter.get("/sign-out", authController.signOut);
+authRouter.get("/sign-out", catchAsync(authController.signOut));
 
 module.exports = authRouter;

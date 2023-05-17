@@ -6,7 +6,7 @@ const StatusCode = require("../utils/Objects/StatusCode");
 /**
  * Middleware for uploading an image to Cloudinary.
  *
- * @memberof module:imageUploadMiddleware
+ * @memberof module:fileUpload
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @param {Function} next - Next function to pass control to the next middleware.
@@ -34,5 +34,5 @@ exports.uploadImage = catchAsync((req, res, next) => {
 
 /**
  * Represents a module for handling image upload related middlewares.
- * @module imageUploadMiddleware
+ * @module fileUpload
  */
