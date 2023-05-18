@@ -11,7 +11,7 @@ const sendResponse = require("../utils/response.util");
  * @memberof module:errorHandler
  */
 const errorHandler = (err, req, res, next) => {
-  console.error(err);
+  
   
   if (!(err instanceof AppError)) {
     err.statusCode = 500;

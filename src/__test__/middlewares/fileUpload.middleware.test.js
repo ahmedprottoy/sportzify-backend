@@ -22,7 +22,7 @@ describe("uploadImage", () => {
     await fileUpload.uploadImage(req, res, next);
 
     expect(cloudinary.uploader.upload_stream).toHaveBeenCalledWith(
-      { resource_type: "auto" },
+      { resource_type: "auto",folder:"sportzify" },
       expect.any(Function)
     );
     expect(req.file).toEqual({

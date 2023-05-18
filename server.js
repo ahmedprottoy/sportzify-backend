@@ -6,6 +6,6 @@ const port = process.env.SERVER_PORT;
 
 connectDatabase();
 
-app.listen(port, () => {
+exports.server = app.listen(port, () => {
   console.log(`Server is running on Port: ${port}`);
 });

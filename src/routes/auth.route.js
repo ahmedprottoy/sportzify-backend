@@ -56,6 +56,6 @@ authRouter.post(
  * @param {string} path - Express route path
  * @param {Function} controller - Express controller function
  */
-authRouter.get("/sign-out", catchAsync(authController.signOut));
+authRouter.post("/sign-out", catchAsync(authController.signOut));
 
 module.exports = authRouter;

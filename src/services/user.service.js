@@ -150,6 +150,7 @@ exports.allBlogs = async (username) => {
 exports.updateImage = async (username, imageUrl, imagePublicId) => {
   const userId = await userRepo.getUserIdByUsername(username);
   
+  console.log(userId);
   if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
