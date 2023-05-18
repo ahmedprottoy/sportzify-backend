@@ -33,7 +33,6 @@ exports.signUp = async (req, res, next) => {
  * @returns {Promise<void>} A promise that resolves when the user is logged in.
  */
 exports.signIn = async (req, res, next) => {
-  console.log("hitting sign in route");
   const { email, password } = req.body;
   const token = await authService.signIn(email, password, res);
   sendResponse(req, res, StatusCode.OK, "User logged in", { token });

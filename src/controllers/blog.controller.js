@@ -58,7 +58,7 @@ exports.allBlogs = async (req, res) => {
 exports.singleBlog = async (req, res) => {
   const blog = await blogService.getBlogById(req.params.id);
   if (!blog) {
-    throw new AppError("No blog found with this id", 404);
+    throw new AppError(StatusCode.NOT_FOUND,"No blog found with this id") ;
   }
   sendResponse(req, res, StatusCode.OK, "Blog fetched successfully", blog);
 };

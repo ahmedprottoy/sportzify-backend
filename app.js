@@ -2,6 +2,7 @@ const express = require("express");
 const indexRouter = require("./src/routes/index.route");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./src/middlewares/errorHandler");
+const association = require("./src/associations/association");
 
 const app = express();
 
