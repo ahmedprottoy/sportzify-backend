@@ -60,6 +60,9 @@ exports.getAllBlogs = async () => {
  */
 exports.getBlogById = async (id) => {
   const blog = await blogRepo.getBlogById(id);
+  if (!blog) {
+    throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
+  }
   return new blogDto(blog);
 };
 
@@ -100,12 +103,12 @@ exports.updateBlog = async (blogId, modifiedBody) => {
  * @throws {AppError} If no blog is found with the provided ID or the user is not authorized to delete the blog.
  */
 exports.deleteBlog = async (username, blogId) => {
-  const blog =await blogRepo.getBlogById(blogId);
-  
+  const blog = await blogRepo.getBlogById(blogId);
+
   if (!blog) {
     throw new AppError(StatusCode.NOT_FOUND, "No blog found with this id");
   }
-  
+
   const userId = await userRepo.getUserIdByUsername(username);
   const imagePublicId = blog.imagePublicId;
 
@@ -124,4 +127,3 @@ exports.deleteBlog = async (username, blogId) => {
  * Represents a module for handling blog-related services.
  * @module blogService
  */
-

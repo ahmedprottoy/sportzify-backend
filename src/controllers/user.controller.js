@@ -50,10 +50,11 @@ exports.allBlogs = async (req, res) => {
  */
 exports.updateUser = async (req, res) => {
   const username = req.params.username;
+  console.log(username)
   const { password } = req.body;
   const modifiedBody = { ...req.body };
   delete modifiedBody.password;
-
+  console.log(req.user.username);
   if (username !== req.user.username) {
     throw new AppError(
       StatusCode.FORBIDDEN,
