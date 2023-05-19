@@ -47,7 +47,7 @@ const connectDatabase = async () => {
      * @memberof sequelizeModule
      * @returns {Promise<void>} A promise that resolves when the synchronization is completed.
      */
-    await sequelize.sync({ force: false });
+    await sequelize.sync();
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error(

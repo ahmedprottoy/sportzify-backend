@@ -71,7 +71,7 @@ exports.updateUser = async (username, updateBody, password) => {
  */
 exports.passwordUpdate = async (username, oldPassword, newPassword) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  
+
   if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
@@ -149,12 +149,10 @@ exports.allBlogs = async (username) => {
  */
 exports.updateImage = async (username, imageUrl, imagePublicId) => {
   const userId = await userRepo.getUserIdByUsername(username);
-  
-  console.log(userId);
+
   if (!userId) {
     throw new AppError(StatusCode.NOT_FOUND, "User not found");
   }
-  
 
   await userRepo.updateUser(userId, { imageUrl, imagePublicId });
 

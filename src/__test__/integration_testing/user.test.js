@@ -31,8 +31,9 @@ describe("User API", () => {
     cookie = signInResponse.headers["set-cookie"];
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+    return await sequelize.close();
   });
 
   it("should fetch a user by username", async () => {
@@ -114,12 +115,24 @@ describe("User API", () => {
     const username = "testUser09";
 
     const response = await request
-      .put(`/api/v1/users/image/${username}`)
+      .post(`/api/v1/users/image/${username}`)
       .attach("image", "src/__test__/integration_testing/test_file/test.png")
       .set("Cookie", cookie);
 
     expect(response.status).toBe(200);
-    expect(response.body.message).toEqual("Image uploaded successfully");
+    expect(response.body.message).toEqual("Image updated successfully");
   });
 
+  it("should delete a user's profile picture", async () => {
+    const username = "testUser09";
+
+    const response = await request
+      .delete(`/api/v1/users/image/${username}`)
+      .set("Cookie", cookie);
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toEqual("Image deleted successfully");
+  });
+
+  
 });

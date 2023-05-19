@@ -136,6 +136,7 @@ exports.updateImage = async (req, res) => {
   const username = req.params.username;
   const imageUrl = req.file.url;
   const imagePublicId = req.file.public_id;
+ 
 
   if (username !== req.user.username) {
     throw new AppError(

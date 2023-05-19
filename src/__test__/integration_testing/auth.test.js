@@ -8,11 +8,12 @@ let token;
 
 describe("Auth API", () => {
   beforeAll(async () => {
-    await sequelize.sync({ force: true });
+    return await sequelize.sync({ force: true });
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+   return await sequelize.close();
   });
 
   describe("User Registration Endpoint", () => {
