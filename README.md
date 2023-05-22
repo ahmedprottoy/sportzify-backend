@@ -3,6 +3,7 @@
 ## Introduction
 
 Blogging website's backend part.
+
 ## Technologies Used
 
 [Node.js](https://nodejs.org/en) - Javascript Run-time.
@@ -17,14 +18,15 @@ Blogging website's backend part.
 
 and others.
 
-## How to Run 
+## How to Run
 
 ### Step 1:
 
 Make sure node.js is installed on your machine.
 
 ### Step 2:
- Clone this Github Repo.
+
+Clone this Github Repo.
 
 ```bash
 https://github.com/makarov009/sportzify.git
@@ -35,16 +37,34 @@ https://github.com/makarov009/sportzify.git
 Create a database on [filess.io](https://filess.io/) or other online database hosting site and copy the connection url or required info to the .env file.
 
 ### Step 4:
+
 Create a file called .env and write all the values of corresponding environment variable :
 
 ```bash
-add later
+SERVER_PORT = 4001
+
+DATABASE_URL = url from site for created database.
+DB_HOST = given host name of database.
+DB_PORT = port_numnber.
+DB_USER = provided name of database.
+DB_PASSWORD = provided passward for database.
+DB_NAME = database name.
+DB_DIALECT = used query language for database.
+DB_STORAGE = :memory:
+
+JWT_SECRET = random secret key.
+
+CLOUD_NAME = cloud storage name.
+CLOUD_API_KEY = API key for cloud storage.
+CLOUD_API_SECRET = API secret for cloud storage.
 ```
 
 ### Step 5:
+
 Make sure you have any package manager ( e.g npm,yarn etc) installed in your machine . Then run the following command-
 
 For npm
+
 ```bash
 npm i
 ```
@@ -56,6 +76,7 @@ yarn install
 ```
 
 ### Step 6:
+
 Finally run this command
 
 ```bash
@@ -64,26 +85,7 @@ npm start
 
 If there is no error then it should run perfectly!!
 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
 ## API Documentation
 
-The complete API Documentation can be found 
+The complete API Documentation can be found
 [HERE.](https://documenter.getpostman.com/view/20447287/2s93m1ZPvQ)
-
