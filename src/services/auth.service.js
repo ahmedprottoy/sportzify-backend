@@ -29,7 +29,7 @@ const {
  * @returns {Promise<Object>} A promise that resolves with the created user object.
  * @throws {AppError} If the email or username already exists.
  */
-exports.createUser = async ({ username, email, fullname, password }) => {
+exports.createUser = async ({ username, email, fullname, password },res) => {
   if (await getUserByEmail(email)) {
     throw new AppError(StatusCode.CONFLICT, "Email already exists");
   }
@@ -48,6 +48,9 @@ exports.createUser = async ({ username, email, fullname, password }) => {
     email,
     fullname,
   });
+
+  const token = await generateAccessToken(username);
+  await authUtil.setCookie(res, token);
 
   return User;
 };
@@ -76,7 +79,6 @@ exports.signIn = async (email, password, res) => {
   }
 
   const token = await generateAccessToken(user.username);
-
   await authUtil.setCookie(res, token);
 
   return token;

@@ -18,7 +18,7 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @returns {Promise<void>} A promise that resolves when the user is created.
  */
 exports.signUp = async (req, res, next) => {
-  const user = await authService.createUser(req.body);
+  const user = await authService.createUser(req.body,res);
   sendResponse(req, res, StatusCode.CREATED, "User created");
 };
 
