@@ -3,6 +3,7 @@ const indexRouter = require("./src/routes/index.route");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./src/middlewares/errorHandler");
 const association = require("./src/associations/association");
+const cors = require("cors");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 //cookieParser,cors,morgan
 // app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
