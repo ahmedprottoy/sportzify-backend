@@ -1,4 +1,4 @@
-const sequelize = require("../config/db.config");
+const {sequelize} = require("../config/db.config");
 const { DataTypes } = require("sequelize");
 const User = require("./user.model");
 
@@ -59,17 +59,7 @@ const Blog = sequelize.define(
   }
 );
 
-User.hasMany(Blog, {
-  foreignKey: { name: "user_id", allowNull: false },
-  indexes: false,
-  onDelete: "CASCADE",
-});
 
-Blog.belongsTo(User, {
-  foreignKey: { name: "user_id", allowNull: false },
-  indexes: false,
-  onDelete: "CASCADE",
-});
 
 module.exports = Blog;
 /**

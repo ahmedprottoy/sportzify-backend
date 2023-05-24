@@ -1,6 +1,5 @@
-const sequelize = require("../config/db.config");
+const {sequelize} = require("../config/db.config");
 const { DataTypes } = require("sequelize");
-
 
 /**
  * Represents the User model in the database.
@@ -72,10 +71,10 @@ const User = sequelize.define(
     freezeTableName: true,
     timestamps: true,
   }
-  );
-  
-  module.exports = User;
-  /**
-   * Represents the User model.
-   * @module userModel
-   */
+);
+
+module.exports = User;
+/**
+ * Represents the User model.
+ * @module userModel
+ */

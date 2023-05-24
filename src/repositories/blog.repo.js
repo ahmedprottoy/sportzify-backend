@@ -36,7 +36,7 @@ exports.createBlog = async (
       },
     ],
   });
-  blog.User = { username: user.username };
+  blog.username = user.username;
   return blog;
 };
 

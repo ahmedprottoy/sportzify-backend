@@ -13,7 +13,7 @@ class blogDto {
     this.id = blog.blog_id;
     this.title = blog.title;
     this.content = blog.content;
-    this.author = blog.User.username;
+    this.author = blog.username;
     this.postedAt = blog.createdAt;
     this.imageUrl = blog.imageUrl;
   }

@@ -11,18 +11,24 @@ const db_url = process.env.DATABASE_URL;
  * The Sequelize instance for connecting to the database.
  * @type {Sequelize}
  */
-const sequelize = new Sequelize(db_url, {
+const sequelize = new Sequelize({
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT,
+  storage: process.env.DB_STORAGE,
   logging: false,
   define: {
     timestamps: true,
     paranoid: false,
     freezeTableName: true,
   },
-  dialect: "mysql",
 });
 
 // Test the database connection
-(async () => {
+const connectDatabase = async () => {
   try {
     /**
      * Authenticates the database connection.
@@ -49,7 +55,9 @@ const sequelize = new Sequelize(db_url, {
       error.message
     );
   }
-})();
-
+};
 // Exported module
-module.exports = sequelize;
+module.exports = {
+  connectDatabase,
+  sequelize,
+};
