@@ -22,6 +22,6 @@ authRouter.post(
   authController.signIn
 );
 
-authRouter.get("/sign-out", checkToken, authController.signOut);
+authRouter.get("/sign-out", authController.signOut);
 
 module.exports = authRouter;

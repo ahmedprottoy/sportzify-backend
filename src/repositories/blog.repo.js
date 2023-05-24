@@ -1,13 +1,21 @@
 const User = require("../models/user.model");
 const Blog = require("../models/blog.model");
 
-exports.createBlog = async (user_id, title, content) => {
-  const user = await User.findByPk(user_id);
+exports.createBlog = async (
+  username,
+  title,
+  content,
+  imageUrl,
+  imagePublicId
+) => {
+  const user = await User.findOne({ where: { username } });
 
   const blog = await Blog.create({
     title,
     content,
-    user_id,
+    imageUrl,
+    imagePublicId,
+    user_id: user.user_id,
     include: [
       {
         model: User,
@@ -16,7 +24,6 @@ exports.createBlog = async (user_id, title, content) => {
     ],
   });
   blog.User = { username: user.username };
-  console.log(blog);
   return blog;
 };
 

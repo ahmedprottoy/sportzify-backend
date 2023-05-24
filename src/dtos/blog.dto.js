@@ -1,3 +1,8 @@
+/** @module dtos */
+
+/**
+ * A class representing a blog DTO
+ */
 class blogDto {
   constructor(blog) {
     this.id = blog.blog_id;
@@ -5,6 +10,7 @@ class blogDto {
     this.content = blog.content;
     this.author = blog.User.username;
     this.postedAt = blog.createdAt;
+    this.imageUrl = blog.imageUrl;
   }
 }
 module.exports = blogDto;

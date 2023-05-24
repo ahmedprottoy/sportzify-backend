@@ -1,26 +1,42 @@
 const express = require("express");
 const userController = require("../controllers/user.controller");
-const {
-  profileUpdate,
-  passwordUpdate,
-} = require("../validators/user.validator");
+const userValidator = require("../validators/user.validator");
 const { validate } = require("../validators/validation");
 const { checkToken } = require("../middlewares/auth.middleware");
-
+const fileUpload = require("../middlewares/fileUpload.middleware");
+const upload = require("../config/multer.config");
 const userRouter = express.Router();
 
-// userRouter.get("/", userController.allUsers);
-
 userRouter
-  .route("/:id")
+  .route("/:username")
   .get(userController.user)
-  .put(checkToken, profileUpdate, validate, userController.updateUser)
+  .put(
+    checkToken,
+    userValidator.profileUpdate,
+    validate,
+    userController.updateUser
+  )
   .delete(checkToken, userController.deleteUser);
 
 userRouter
-  .route("/password/:id")
-  .put(checkToken, passwordUpdate, validate, userController.passwordUpdate);
+  .route("/password/:username")
+  .put(
+    checkToken,
+    userValidator.passwordUpdate,
+    validate,
+    userController.passwordUpdate
+  );
 
-userRouter.route("/blogs/:id").get(userController.allBlogs);
+userRouter.route("/blogs/:username").get(userController.allBlogs);
+
+userRouter
+  .route("/image/:username")
+  .post(
+    checkToken,
+    upload.single("image"),
+    fileUpload.uploadImage,
+    userController.updateImage
+  )
+  .delete(checkToken, userController.deleteUserImage);
 
 module.exports = userRouter;

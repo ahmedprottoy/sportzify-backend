@@ -20,26 +20,12 @@ exports.signUp = [
       "Password should have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
     ),
 
-  body("firstname")
+  body("fullname")
     .trim()
     .isLength({ min: 3 })
-    .withMessage("Firstname must be at least 3 characters long")
+    .withMessage("Fullname must be at least 3 characters long")
     .isLength({ max: 20 })
-    .withMessage("Firstname must be at most 20 characters long"),
-
-  body("lastname")
-    .trim()
-    .isLength({ min: 3 })
-    .withMessage("Lastname must be at least 3 characters long")
-    .isLength({ max: 20 })
-    .withMessage("Lastname must be at most 20 characters long"),
-
-  body("age")
-    .trim()
-    .isInt({ min: 18 })
-    .withMessage("Age must be at least 18 years old")
-    .isInt({ max: 100 })
-    .withMessage("Age must be at most 100 years old"),
+    .withMessage("Fullname must be at most 20 characters long"),
 ];
 
 exports.signIn = [

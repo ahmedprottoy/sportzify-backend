@@ -17,20 +17,14 @@ const User = sequelize.define(
         notEmpty: true,
       },
     },
-    firstname: {
+    fullname: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -47,12 +41,18 @@ const User = sequelize.define(
         notEmpty: true,
       },
     },
-    age: {
-      type: DataTypes.INTEGER,
+
+    imageUrl: {
+      type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        min: 18,
+        isUrl: true,
+        notEmpty: true,
       },
+    },
+    imagePublicId: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

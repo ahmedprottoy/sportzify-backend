@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const cloudinary = require("../config/cloudinary.config");
 
 exports.hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -19,4 +20,8 @@ exports.setCookie = async (res, token) => {
 
 exports.destroyCookie = async (res) => {
   res.clearCookie("authorization");
+};
+
+exports.deleteImage = async (imageId) => {
+  await cloudinary.uploader.destroy(imageId);
 };

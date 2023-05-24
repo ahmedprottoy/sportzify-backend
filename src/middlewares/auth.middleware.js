@@ -12,6 +12,7 @@ exports.checkToken = catchAsync(async (req, res, next) => {
 
   try {
     const decoded = await authUtil.verifyAccessToken(token);
+
     req.user = decoded;
     next();
   } catch (error) {

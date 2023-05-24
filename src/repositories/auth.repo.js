@@ -12,9 +12,7 @@ exports.createUser = async ({
   user_id,
   username,
   email,
-  firstname,
-  lastname,
-  age,
+  fullname,
   password,
 }) => {
   console.log("hitting create user");
@@ -22,9 +20,7 @@ exports.createUser = async ({
     user_id,
     username,
     email,
-    firstname,
-    lastname,
-    age,
+    fullname,
     password,
   });
 
