@@ -37,6 +37,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "classy-template": "^1.2.0",
     "clean-jsdoc-theme": "^4.2.7",
     "jsdoc": "^4.0.2"
   }

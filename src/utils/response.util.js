@@ -1,5 +1,17 @@
 const js2xmlparser = require("js2xmlparser");
 
+/**
+ * Sends a response to the client.
+ * @function
+ * @name sendResponse
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {number} statusCode - HTTP status code
+ * @param {string} message - Response message
+ * @param {Object} data - Response data
+ * @returns {Object} The response object.
+ * @see sendResponse
+ */
 const sendResponse = (req, res, statusCode, message, data) => {
   const response = {
     message: message,
@@ -16,3 +28,8 @@ const sendResponse = (req, res, statusCode, message, data) => {
 };
 
 module.exports = sendResponse;
+
+/**
+ * Represents a module for handling response related utilities and content negotiation.
+ * @module responseUtil
+ */

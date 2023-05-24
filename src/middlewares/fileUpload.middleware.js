@@ -3,6 +3,15 @@ const AppError = require("../utils/AppError");
 const catchAsync = require("./catchAsync");
 const StatusCode = require("../utils/Objects/StatusCode");
 
+/**
+ * Middleware for uploading an image to Cloudinary.
+ *
+ * @memberof module:imageUploadMiddleware
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Next function to pass control to the next middleware.
+ * @returns {Promise<void>}
+ */
 exports.uploadImage = catchAsync((req, res, next) => {
   // Upload the image to Cloudinary
   const file = req.file;
@@ -22,3 +31,8 @@ exports.uploadImage = catchAsync((req, res, next) => {
     })
     .end(file.buffer);
 });
+
+/**
+ * Represents a module for handling image upload related middlewares.
+ * @module imageUploadMiddleware
+ */

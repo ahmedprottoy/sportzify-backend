@@ -5,6 +5,16 @@ const authUtils = require("../utils/auth.util");
 const StatusCode = require("../utils/Objects/StatusCode");
 const sendResponse = require("../utils/response.util");
 
+/**
+ * Get user by username
+ * @async
+ * @function
+ * @name signUp
+ * @memberof module:userController
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.user = catchAsync(async (req, res) => {
   const username = req.params.username;
 
@@ -12,12 +22,32 @@ exports.user = catchAsync(async (req, res) => {
   sendResponse(req, res, StatusCode.OK, "User fetched successfully", user);
 });
 
+/**
+ * Get all blogs of a user
+ * @async
+ * @function
+ * @name allBlogs
+ * @memberof module:userController
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.allBlogs = catchAsync(async (req, res) => {
   const username = req.params.username;
   const blogs = await userService.allBlogs(username);
   sendResponse(req, res, StatusCode.OK, "Blogs fetched successfully", blogs);
 });
 
+/**
+ * Update user by username
+ * @async
+ * @function
+ * @name updateUser
+ *  @memberof module:userController
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.updateUser = catchAsync(async (req, res) => {
   const username = req.params.username;
   const { password } = req.body;
@@ -34,6 +64,16 @@ exports.updateUser = catchAsync(async (req, res) => {
   sendResponse(req, res, StatusCode.OK, "User updated successfully", user);
 });
 
+/**
+ * Update user password by username
+ * @async 
+ * @function
+ * @name passwordUpdate
+ * @memberof module:userController
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.passwordUpdate = catchAsync(async (req, res) => {
   const username = req.params.username;
   const { oldPassword, newPassword } = req.body;
@@ -54,6 +94,17 @@ exports.passwordUpdate = catchAsync(async (req, res) => {
   }
 });
 
+/**
+ * Delete user by username
+ *  @async
+ * @function
+ * @name deleteUser
+ * @memberof module:userController
+
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.deleteUser = catchAsync(async (req, res) => {
   const username = req.params.username;
   const password = req.body.password;
@@ -70,6 +121,17 @@ exports.deleteUser = catchAsync(async (req, res) => {
   }
 });
 
+/**
+ * Update user image by username
+ * @async
+ * @function
+ * @name updateImage
+ * @memberof module:userController
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.updateImage = catchAsync(async (req, res) => {
   const username = req.params.username;
   const imageUrl = req.file.url;
@@ -86,6 +148,16 @@ exports.updateImage = catchAsync(async (req, res) => {
   sendResponse(req, res, StatusCode.OK, "Image updated successfully", user);
 });
 
+/**
+ * Delete user image by username
+ * @async
+ * @function
+ * @name deleteUserImage
+ * @memberof module:userController
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>}
+ */
 exports.deleteUserImage = catchAsync(async (req, res) => {
   const username = req.params.username;
   if (username !== req.user.username) {
@@ -97,3 +169,8 @@ exports.deleteUserImage = catchAsync(async (req, res) => {
   const user = await userService.deleteUserImage(username);
   sendResponse(req, res, StatusCode.OK, "Image deleted successfully", user);
 });
+
+/**
+ * Represents a module for handling user related operations such as fetching user, updating user, deleting user, etc.
+ * @module userController
+ */

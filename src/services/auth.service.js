@@ -10,6 +10,25 @@ const {
   createUser,
 } = require("../repositories/auth.repo");
 
+/**
+ * @module authService
+ * @desc A module that provides services for the authentication and authorization of users.
+ */
+
+/**
+ * Creates a new user with the provided details.
+ * @async
+ * @function
+ * @name createUser
+ * @memberof module:authService
+ * @param {Object} userDetails - The details of the user to be created.
+ * @param {string} userDetails.username - The username of the user.
+ * @param {string} userDetails.email - The email of the user.
+ * @param {string} userDetails.fullname - The full name of the user.
+ * @param {string} userDetails.password - The password of the user.
+ * @returns {Promise<Object>} A promise that resolves with the created user object.
+ * @throws {AppError} If the email or username already exists.
+ */
 exports.createUser = async ({ username, email, fullname, password }) => {
   if (await getUserByEmail(email)) {
     throw new AppError(StatusCode.CONFLICT, "Email already exists");
@@ -33,6 +52,18 @@ exports.createUser = async ({ username, email, fullname, password }) => {
   return User;
 };
 
+/**
+ * Signs in a user with the provided email and password.
+ * @async
+ * @function
+ * @name signIn
+ * @memberof module:authService
+ * @param {string} email - The email of the user.
+ * @param {string} password - The password of the user.
+ * @param {Object} res - The HTTP response object.
+ * @returns {Promise<string>} A promise that resolves with the authentication token.
+ * @throws {AppError} If the user is not found or the password is incorrect.
+ */
 exports.signIn = async (email, password, res) => {
   const user = await getUserByEmail(email);
 
