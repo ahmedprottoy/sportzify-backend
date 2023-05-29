@@ -81,5 +81,5 @@ exports.signIn = async (email, password, res) => {
   const token = await generateAccessToken(user.username);
   await authUtil.setCookie(res, token);
 
-  return token;
+  return user;
 };

@@ -25,6 +25,11 @@ const sequelize = new Sequelize({
     paranoid: false,
     freezeTableName: true,
   },
+  dialectOptions: {
+    ssl: {
+      require: true,
+    },
+  },
 });
 
 // Test the database connection
