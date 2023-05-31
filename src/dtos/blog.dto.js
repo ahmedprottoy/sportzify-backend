@@ -1,3 +1,5 @@
+
+
 /**
  * @class
  * @classdesc Blog Data Transfer Object
@@ -8,13 +10,15 @@
  * @property {Date} postedAt - The date the blog was posted.
  * @property {String} imageUrl - The image URL of the blog.
  */
+
+const  { dateformatter } = require ("../utils/converter.js");
 class blogDto {
   constructor(blog) {
     this.id = blog.blog_id;
     this.title = blog.title;
     this.content = blog.content;
-    this.author = blog.username;
-    this.postedAt = blog.createdAt;
+    this.author = blog.User.username;
+    this.postedAt = dateformatter(blog.createdAt);
     this.imageUrl = blog.imageUrl;
   }
 }

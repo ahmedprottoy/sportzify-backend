@@ -47,6 +47,7 @@ exports.createBlog = async (
 exports.getAllBlogs = async () => {
   const blogs = await blogRepo.getAllBlogs();
   return blogs.map((blog) => new blogDto(blog));
+  // return blogs;
 };
 
 /**
