@@ -32,6 +32,7 @@ exports.createBlog = async (
     imageUrl,
     imagePublicId
   );
+  // console.log(newBlog)
 
   return new blogDto(newBlog);
 };

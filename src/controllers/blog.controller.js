@@ -15,10 +15,16 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @returns {Promise<void>} A promise that resolves when the blog is created.
  */
 exports.createBlog = async (req, res) => {
+  
   const username = req.user.username;
   const { title, content } = req.body;
-  const imageUrl = req.file.url;
-  const imagePublicId = req.file.public_id;
+
+  let imageUrl = null;
+  let imagePublicId = null;
+  if (req.file) {
+   imageUrl = req.file.url;
+   imagePublicId = req.file.public_id;
+  }
   const blog = await blogService.createBlog(
     username,
     title,
@@ -76,6 +82,11 @@ exports.singleBlog = async (req, res) => {
 exports.updateBlog = async (req, res) => {
   const blogId = req.params.id;
   const modifiedBody = req.body;
+if(req.file)  {
+  modifiedBody.imageUrl = req.file.url;
+  modifiedBody.imagePublicId = req.file.public_id;
+  
+}
   const blog = await blogService.updateBlog(blogId, modifiedBody);
   sendResponse(req, res, StatusCode.OK, "Blog updated successfully", blog);
 };
