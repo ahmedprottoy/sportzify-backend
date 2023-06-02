@@ -14,6 +14,7 @@ const StatusCode = require("../utils/Objects/StatusCode");
  */
 exports.uploadImage = catchAsync((req, res, next) => {
   
+  
   if(!req.file) return next();
   const file = req.file;
   cloudinary.uploader

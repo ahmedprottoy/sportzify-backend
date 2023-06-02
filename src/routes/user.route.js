@@ -31,8 +31,8 @@ userRouter
   .get(catchAsync(userController.user))
   .put(
     checkToken,
-    userValidator.profileUpdate,
-    validate,
+    // userValidator.profileUpdate,
+    // validate,
     catchAsync(userController.updateUser)
   )
   .delete(checkToken, catchAsync(userController.deleteUser));
