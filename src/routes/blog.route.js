@@ -47,7 +47,7 @@ blogRouter
  */
 blogRouter
   .route("/:id")
-  .get(checkToken, catchAsync(blogController.singleBlog))
+  .get(catchAsync(blogController.singleBlog))
   .put(
     checkToken,
     upload.single("image"),
