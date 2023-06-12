@@ -47,8 +47,8 @@ exports.comparePassword = async (inputPassword, hashedPassword) => {
 exports.setCookie = async (res, token) => {
   res.cookie("authorization", token, {
     httpOnly: true,
-    sameSite: "strict",
-    secure: false,
+    sameSite: "none",
+    secure: true,
   });
 };
 
