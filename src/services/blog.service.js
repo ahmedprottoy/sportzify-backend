@@ -122,7 +122,9 @@ exports.deleteBlog = async (username, blogId) => {
   }
 
   await blogRepo.deleteBlog(blogId);
-  await authUtil.deleteImage(imagePublicId);
+  if (imagePublicId) {
+    await authUtil.deleteImage(imagePublicId);
+  }
 };
 
 /**
