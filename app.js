@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const errorHandler = require("./src/middlewares/errorHandler");
 const association = require("./src/associations/association");
 const cors = require("cors");
-
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(
   cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173",process.env.CLIENT_URL],
   })
 );
 app.use(express.urlencoded({ extended: false }));
