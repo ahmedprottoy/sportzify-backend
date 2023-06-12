@@ -1,5 +1,15 @@
 const { validationResult } = require("express-validator");
+const StatusCode = require("../utils/Objects/StatusCode");
 
+/**
+ * Validates the request using the defined validation rules.
+ * If there are validation errors, it sends a response with the errors.
+ * Otherwise, it proceeds to the next middleware.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ */
 exports.validate = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -8,7 +18,6 @@ exports.validate = (req, res, next) => {
   }
 
   const extractedErrors = {};
-  console.log(errors);
 
   errors.array().forEach((error) => {
     if (!extractedErrors[error.param]) {
@@ -18,7 +27,7 @@ exports.validate = (req, res, next) => {
     extractedErrors[error.param].push(error.msg);
   });
 
-  return res.status(422).json({
+  return res.status(StatusCode.BAD_REQUEST).json({
     errors: extractedErrors,
   });
 };

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "gen-docs": "jsdoc --configure jsdoc.json --verbose",
+    "test": "set \"SERVER_PORT=0\" & set \"DB_DIALECT=sqlite\" & jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "cloudinary": "^1.36.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -28,9 +31,19 @@
     "express-validator": "^7.0.1",
     "js2xmlparser": "^5.0.0",
     "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.2.4",
     "nodemon": "^2.0.22",
+    "pg": "^8.11.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.31.1",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "clean-jsdoc-theme": "^4.2.7",
+    "jest": "^29.5.0",
+    "jsdoc": "^4.0.2",
+    "sqlite3": "^5.1.6",
+    "supertest": "^6.3.3"
   }
 }

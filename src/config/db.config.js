@@ -1,44 +1,68 @@
+/**
+ * @namespace sequelizeModule
+ * @desc A module for configuring and exporting the Sequelize instance.
+ */
 const Sequelize = require("sequelize");
-
 const dotenv = require("dotenv");
 dotenv.config();
-
 const db_url = process.env.DATABASE_URL;
 
-const sequelize = new Sequelize(db_url, {
+/**
+ * The Sequelize instance for connecting to the database.
+ * @type {Sequelize}
+ */
+const sequelize = new Sequelize({
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT,
+  storage: process.env.DB_STORAGE,
   logging: false,
   define: {
     timestamps: true,
     paranoid: false,
     freezeTableName: true,
   },
-  dialect: "mysql",
+  dialectOptions: {
+    ssl: {
+      require: true,
+    },
+  },
 });
 
 // Test the database connection
-(async () => {
+const connectDatabase = async () => {
   try {
+    /**
+     * Authenticates the database connection.
+     * @function
+     * @name authenticate
+     * @memberof sequelizeModule
+     * @returns {Promise<void>} A promise that resolves when the connection is established.
+     */
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error.message);
-  }
-})();
 
-// Sync the model with the database
-(async () => {
-  try {
+    /**
+     * Synchronizes all defined models with the database.
+     * @function
+     * @name syncModels
+     * @memberof sequelizeModule
+     * @returns {Promise<void>} A promise that resolves when the synchronization is completed.
+     */
     await sequelize.sync();
     console.log("All models were synchronized successfully.");
-
-    //await sequelize.sync({force:true}); ===>"DROP ALL TABLE & CREATE NEW ONE"
-    // await sequelize.sync({ alter: true });  ===> "WONT DELETE TABLE BUT WILL ALTER TABLE"
   } catch (error) {
     console.error(
-      "Unable to synchronize the models with the database:",
+      "Unable to connect or synchronize to the database:",
       error.message
     );
   }
-})();
-
-module.exports = sequelize;
+};
+// Exported module
+module.exports = {
+  connectDatabase,
+  sequelize,
+};
