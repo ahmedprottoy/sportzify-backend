@@ -2,6 +2,7 @@ const catchAsync = require("../middlewares/catchAsync");
 const AppError = require("../utils/AppError");
 const userService = require("../services/user.service");
 const authUtils = require("../utils/auth.util");
+const jwtUtils = require("../utils/jwt.util");
 const StatusCode = require("../utils/Objects/StatusCode");
 const sendResponse = require("../utils/response.util");
 
@@ -50,11 +51,19 @@ exports.allBlogs = async (req, res) => {
  */
 exports.updateUser = async (req, res) => {
   const username = req.params.username;
-  console.log(username)
+  
+ 
   const { password } = req.body;
   const modifiedBody = { ...req.body };
   delete modifiedBody.password;
-  console.log(req.user.username);
+
+    for (const prop in modifiedBody) {
+      if (modifiedBody[prop] === '') {
+        delete modifiedBody[prop];
+      }
+    }
+  
+ 
   if (username !== req.user.username) {
     throw new AppError(
       StatusCode.FORBIDDEN,
@@ -62,6 +71,9 @@ exports.updateUser = async (req, res) => {
     );
   }
   const user = await userService.updateUser(username, modifiedBody, password);
+
+
+
   sendResponse(req, res, StatusCode.OK, "User updated successfully", user);
 };
 

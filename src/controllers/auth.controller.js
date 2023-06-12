@@ -18,8 +18,11 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @returns {Promise<void>} A promise that resolves when the user is created.
  */
 exports.signUp = async (req, res, next) => {
-  const user = await authService.createUser(req.body,res);
-  sendResponse(req, res, StatusCode.CREATED, "User created");
+  const user = await authService.createUser(req.body, res);
+  sendResponse(req, res, StatusCode.CREATED, "User created", {
+    username: user.username,
+    imageURL: user.imageUrl,
+  });
 };
 
 /**
@@ -34,8 +37,11 @@ exports.signUp = async (req, res, next) => {
  */
 exports.signIn = async (req, res, next) => {
   const { email, password } = req.body;
-  const token = await authService.signIn(email, password, res);
-  sendResponse(req, res, StatusCode.OK, "User logged in", { token });
+  const user = await authService.signIn(email, password, res);
+  sendResponse(req, res, StatusCode.OK, "User logged in", {
+    username: user.username,
+    imageURL: user.imageUrl,
+  });
 };
 
 /**

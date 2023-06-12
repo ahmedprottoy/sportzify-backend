@@ -29,14 +29,17 @@ exports.createBlog = async (
     imageUrl,
     imagePublicId,
     user_id: user.user_id,
+  });
+  await blog.reload({
     include: [
       {
         model: User,
+
         attributes: ["username"],
       },
     ],
   });
-  blog.username = user.username;
+
   return blog;
 };
 
@@ -94,6 +97,7 @@ exports.getBlogById = async (id) => {
  * @returns {Promise<void>}
  */
 exports.updateBlog = async (blogId, modifiedBody) => {
+  
   await Blog.update(modifiedBody, {
     where: { blog_id: blogId },
   });

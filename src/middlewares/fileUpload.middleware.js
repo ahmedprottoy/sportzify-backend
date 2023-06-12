@@ -13,7 +13,9 @@ const StatusCode = require("../utils/Objects/StatusCode");
  * @returns {Promise<void>}
  */
 exports.uploadImage = catchAsync((req, res, next) => {
-  // Upload the image to Cloudinary
+  
+  
+  if(!req.file) return next();
   const file = req.file;
   cloudinary.uploader
     .upload_stream({ resource_type: "auto",folder: "sportzify" }, (error, result) => {

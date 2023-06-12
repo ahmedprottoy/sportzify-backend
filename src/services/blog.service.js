@@ -32,6 +32,7 @@ exports.createBlog = async (
     imageUrl,
     imagePublicId
   );
+  // console.log(newBlog)
 
   return new blogDto(newBlog);
 };
@@ -47,6 +48,7 @@ exports.createBlog = async (
 exports.getAllBlogs = async () => {
   const blogs = await blogRepo.getAllBlogs();
   return blogs.map((blog) => new blogDto(blog));
+  // return blogs;
 };
 
 /**
@@ -120,7 +122,9 @@ exports.deleteBlog = async (username, blogId) => {
   }
 
   await blogRepo.deleteBlog(blogId);
-  await authUtil.deleteImage(imagePublicId);
+  if (imagePublicId) {
+    await authUtil.deleteImage(imagePublicId);
+  }
 };
 
 /**

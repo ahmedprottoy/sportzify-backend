@@ -47,8 +47,13 @@ blogRouter
  */
 blogRouter
   .route("/:id")
-  .get(checkToken, catchAsync(blogController.singleBlog))
-  .put(checkToken, catchAsync(blogController.updateBlog))
-  .delete(checkToken,catchAsync (blogController.deleteBlog));
+  .get(catchAsync(blogController.singleBlog))
+  .put(
+    checkToken,
+    upload.single("image"),
+    fileUpload.uploadImage,
+    catchAsync(blogController.updateBlog)
+  )
+  .delete(checkToken, catchAsync(blogController.deleteBlog));
 
 module.exports = blogRouter;

@@ -18,20 +18,26 @@ exports.signUp = [
     .withMessage("Username must be at least 3 characters long")
     .isLength({ max: 20 })
     .withMessage("Username must be at most 20 characters long"),
-
-  body("password")
-    .trim()
-    .isStrongPassword()
-    .withMessage(
-      "Password should have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
-    ),
-
   body("fullname")
     .trim()
     .isLength({ min: 3 })
     .withMessage("Fullname must be at least 3 characters long")
     .isLength({ max: 20 })
     .withMessage("Fullname must be at most 20 characters long"),
+
+  body("password")
+    .trim()
+    .isStrongPassword()
+    .withMessage(
+      "Password must be at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
+    ),
+
+  body("confirmPassword").custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error("Passwords do not match");
+    }
+    return true;
+  }),
 ];
 
 

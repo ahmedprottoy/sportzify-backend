@@ -13,20 +13,16 @@ exports.createBlog = [
     .notEmpty()
     .withMessage("Title is required")
     .isLength({ min: 3 })
-    .withMessage("Title must be at least 3 characters long")
-    .isLength({ max: 150 })
-    .withMessage("Title must be at most 150 characters long"),
-
+    .withMessage("Title must be at least 3 characters long"),
   body("content").trim().notEmpty().withMessage("Content is required"),
 ];
-
 
 /**
  * Validates the request body for the updateBlog route.
  * @name updateBlog
  * @memberof module:blogsValidator
  * @see updateBlog
- */ 
+ */
 exports.updateBlog = [
   body("title")
     .trim()
@@ -34,7 +30,6 @@ exports.updateBlog = [
     .isLength({ max: 150 })
     .withMessage("Title must be at most 150 characters long"),
 ];
-
 
 /**
  * Validates the request body for the createBlog and updateBlog routes.
