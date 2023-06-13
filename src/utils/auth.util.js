@@ -64,7 +64,11 @@ exports.setCookie = async (res, token) => {
  * @see destroyCookie
  */ 
 exports.destroyCookie = async (res) => {
-  res.clearCookie("authorization");
+  res.clearCookie("authorization", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  });
 };
 
 
