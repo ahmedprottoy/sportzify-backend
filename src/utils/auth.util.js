@@ -46,9 +46,8 @@ exports.comparePassword = async (inputPassword, hashedPassword) => {
  */
 exports.setCookie = async (res, token) => {
   res.cookie("authorization", token, {
-    domain: process.env.COOKIE_DOMAIN,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "none",
     secure: true,
   });
 };
