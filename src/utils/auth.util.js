@@ -13,7 +13,7 @@ const cloudinary = require("../config/cloudinary.config");
  * @memberof module:authUtil
  * @param {string} password - The password to be hashed.
  * @returns {Promise<string>} A promise that resolves with the hashed password.
- */  
+ */
 exports.hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
@@ -28,7 +28,7 @@ exports.hashPassword = async (password) => {
  * @param {string} inputPassword - The password to be compared.
  * @param {string} hashedPassword - The hashed password to be compared with.
  * @returns {Promise<boolean>} A promise that resolves with a boolean value indicating whether the passwords match.
- */ 
+ */
 exports.comparePassword = async (inputPassword, hashedPassword) => {
   return await bcrypt.compare(inputPassword, hashedPassword);
 };
@@ -42,16 +42,16 @@ exports.comparePassword = async (inputPassword, hashedPassword) => {
  * @param {Object} res - The HTTP response object.
  * @param {string} token - The token to be set in the cookie.
  * @returns {Promise<void>}
- * @see setCookie 
+ * @see setCookie
  */
 exports.setCookie = async (res, token) => {
   res.cookie("authorization", token, {
+    domain: process.env.CLIENT_URL,
     httpOnly: true,
-    sameSite: "none",
+    sameSite: "strict",
     secure: true,
   });
 };
-
 
 /**
  * Destroys the cookie in the response
@@ -62,7 +62,7 @@ exports.setCookie = async (res, token) => {
  * @param {Object} res - The HTTP response object.
  * @returns {Promise<void>}
  * @see destroyCookie
- */ 
+ */
 exports.destroyCookie = async (res) => {
   res.clearCookie("authorization", {
     httpOnly: true,
@@ -71,17 +71,15 @@ exports.destroyCookie = async (res) => {
   });
 };
 
-
-/** 
+/**
  * deletes an image from cloudinary
  * @async
  * @function
  * @name deleteImage
  * memberof module:authUtil
  * @param {string} imageId - The id of the image to be deleted.
- * @returns {Promise<void>} 
+ * @returns {Promise<void>}
  */
 exports.deleteImage = async (imageId) => {
   await cloudinary.uploader.destroy(imageId);
 };
-
