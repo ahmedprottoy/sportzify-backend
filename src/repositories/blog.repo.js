@@ -60,7 +60,7 @@ exports.getAllBlogs = async () => {
       },
     ],
   });
-
+ 
   return blogs;
 };
 
