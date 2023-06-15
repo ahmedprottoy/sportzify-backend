@@ -11,7 +11,7 @@
  * @property {String} imageUrl - The image URL of the blog.
  */
 
-const  { dateformatter } = require ("../utils/converter.js");
+
 class blogDto {
  
   constructor(blog) {
@@ -19,8 +19,8 @@ class blogDto {
     this.title = blog.title;
     this.content = blog.content;
     this.author = blog.User.username;
-    this.postedAt = dateformatter(blog.createdAt);
-    this.updatedAt = dateformatter(blog.updatedAt);
+    this.postedAt = blog.createdAt;
+    this.updatedAt = blog.updatedAt;
     this.imageUrl = blog.imageUrl;
   }
 }
