@@ -29,12 +29,12 @@ Make sure node.js is installed on your machine.
 Clone this Github Repo.
 
 ```bash
-https://github.com/makarov009/sportzify.git
+https://github.com/makarov009/sportzify-backend.git
 ```
 
 ### Step 3:
 
-Create a database on [filess.io](https://filess.io/) or other online database hosting site and copy the connection url or required info to the .env file.
+Create a database on [render.com](https://render.com/) or other online database hosting site and copy the connection url or required info to the .env file.
 
 ### Step 4:
 
