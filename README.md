@@ -29,7 +29,7 @@ Make sure node.js is installed on your machine.
 Clone this Github Repo.
 
 ```bash
-https://github.com/makarov009/sportzify.git
+https://github.com/makarov009/sportzify-backend.git
 ```
 
 ### Step 3:
