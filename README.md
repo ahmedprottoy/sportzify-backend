@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Blogging website's backend part.
+A sports-blogging platform that allows sports enthusiasts to publish about their favorite sports topics & events.
+
+Thos is the Website's backend part.
 
 ## Technologies Used
 
