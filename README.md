@@ -6,7 +6,7 @@ A sports-blogging platform that allows sports enthusiasts to publish about their
 
 This is the Website's backend part.
 
-[Frontend Github Link](https://github.com/makarov009/sportzify-frontend.git)  
+## [Frontend Github Link](https://github.com/makarov009/sportzify-frontend.git)  
 
 ## Technologies Used
 
